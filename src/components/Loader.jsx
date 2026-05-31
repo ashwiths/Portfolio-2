@@ -20,7 +20,8 @@ export default function Loader({ onComplete }) {
           setTimeout(() => onComplete?.(), 700);
           return 100;
         }
-        return prev + Math.random() * 5 + 3; // slightly faster and organic feel
+        // avg ~2.15% per 70ms step → completes in ~3.25s, matching the 2.75s signature animation + 500ms buffer
+        return prev + Math.random() * 1.5 + 1.4;
       });
     }, 70);
 

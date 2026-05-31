@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader';
 import HeroBento from './components/HeroBento';
 import EcosystemShowcase from './components/EcosystemShowcase';
+import PlacesMap from './components/PlacesMap';
 import SelectedWorks from './components/SelectedWorks';
 import Articles from './components/Articles';
 import Footer from './components/Footer';
@@ -56,6 +57,7 @@ export default function App() {
           <main className="relative z-10">
             <HeroBento />
             <EcosystemShowcase />
+            <PlacesMap />
             <SelectedWorks />
             <Articles />
           </main>

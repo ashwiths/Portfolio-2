@@ -90,7 +90,6 @@ function BentoCard({ children, className = "", delay = 0, style = {} }) {
 
 export default function HeroBento() {
   const [greetingIndex, setGreetingIndex] = useState(0);
-  const [signKey, setSignKey] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -181,7 +180,7 @@ export default function HeroBento() {
 
             <div className="flex items-center gap-2 mt-5 md:mt-6 text-zinc-400 text-sm font-mono uppercase tracking-[0.22em]">
               <Sparkles size={12} className="text-violet-400 animate-pulse" />
-              <span>Full Stack Developer & CEOr</span>
+              <span>Full Stack Developer & Chief Executive Officer</span>
             </div>
           </div>
         </motion.div>
@@ -232,10 +231,10 @@ export default function HeroBento() {
           </div>
         </motion.div>
 
-        {/* 3. Bio Card (Col 1-4 / 12) */}
+        {/* 3. Bio Card (Col 1-8 / 12) */}
         <BentoCard
           delay={2}
-          className="md:col-span-4 p-10 md:p-12 min-h-[380px] flex flex-col justify-between"
+          className="md:col-span-8 p-10 md:p-12 min-h-[380px] flex flex-col justify-between"
         >
           <div className="flex-1 flex flex-col justify-between">
             <div>
@@ -250,57 +249,50 @@ export default function HeroBento() {
               </p>
             </div>
 
-            {/* Signature — re-animates on hover (re-signs from scratch) */}
-            <div
-              className="mt-8 opacity-85 hover:opacity-100 transition-opacity duration-300 flex justify-start items-center cursor-pointer"
-              onMouseEnter={() => setSignKey(k => k + 1)}
-            >
+            {/* Signature — premium realistic handwriting animation (enlarged for wide layout) */}
+            <div className="mt-8 opacity-85 hover:opacity-100 transition-opacity duration-300 flex justify-start items-center cursor-pointer">
               <Signature
-                key={signKey}
-                className="w-44 h-14 md:w-48 md:h-16 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.08)]"
+                className="w-60 h-16 md:w-72 md:h-20"
                 color="#ffffff"
-                delay={0}
-                strokeWidth={1.5}
+                strokeWidth={1.7}
               />
             </div>
           </div>
 
-          {/* Bottom Contact Section - Redesigned premium footer-style contact layout */}
-          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col gap-5">
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[9px] text-zinc-550 uppercase tracking-widest font-mono font-medium">Get in touch</span>
+          {/* Bottom Contact Section - Aligned to the left, side-by-side with large text */}
+          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-start gap-6 md:gap-10">
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono font-semibold">Get in touch</span>
               <a
                 href="mailto:infantashil55@gmail.com"
-                className="text-xs text-zinc-300 hover:text-white transition-colors duration-300 font-mono tracking-tight"
+                className="text-base sm:text-lg md:text-xl font-mono text-zinc-200 hover:text-white transition-colors duration-300 tracking-tight"
               >
                 infantashil55@gmail.com
               </a>
             </div>
 
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2.5">
-                <a
-                  href="https://github.com/ashwiths"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon-btn w-9 h-9 border border-white/5 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/20 hover:shadow-[0_0_12px_rgba(124,58,237,0.15)] hover:scale-105 transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03]"
-                >
-                  <Github size={15} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/infant-ashil-a-b88a39361/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon-btn w-9 h-9 border border-white/5 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/20 hover:shadow-[0_0_12px_rgba(124,58,237,0.15)] hover:scale-105 transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03]"
-                >
-                  <Linkedin size={15} />
-                </a>
-              </div>
+            <div className="flex items-center gap-3 self-start md:self-end md:mb-1">
+              <a
+                href="https://github.com/ashwiths"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon-btn w-10 h-10 border border-white/5 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/20 hover:shadow-[0_0_12px_rgba(124,58,237,0.15)] hover:scale-105 transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03]"
+              >
+                <Github size={16} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/infant-ashil-a-b88a39361/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon-btn w-10 h-10 border border-white/5 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/20 hover:shadow-[0_0_12px_rgba(124,58,237,0.15)] hover:scale-105 transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03]"
+              >
+                <Linkedin size={16} />
+              </a>
             </div>
           </div>
         </BentoCard>
 
-        {/* 4. Portrait Photo Card (Col 5-8 / 12 - Center photo) */}
+        {/* 4. Portrait Photo Card (Col 9-12 / 12 - Right Corner photo) */}
         <BentoCard
           delay={3}
           className="md:col-span-4 min-h-[380px] p-0 overflow-hidden relative group/photo"
@@ -335,47 +327,11 @@ export default function HeroBento() {
           </div>
         </BentoCard>
 
-        {/* 5. Experiments / Products Card (Col 9-12 / 12) */}
-        <BentoCard
-          delay={4}
-          className="md:col-span-4 p-10 md:p-12 flex flex-col justify-between min-h-[380px]"
-        >
-          <div>
-            <div className="section-label mb-8">🧪 EXPERIMENTS</div>
-            <div className="flex flex-col gap-5">
-              {[
-                { name: "BlueLab Technologies", desc: "Digital Agency & Web Dev", url: "https://bluelabtech.space", color: "#3B82F6", glow: "hover:shadow-blue-500/5 hover:border-blue-500/30" },
-                { name: "ProjectHub", desc: "Discover Software Projects", url: "https://projecthub.bluelabtech.space", color: "#7C3AED", glow: "hover:shadow-violet-500/5 hover:border-violet-500/30" },
-                { name: "DevKit", desc: "Developer Toolkit Platform", url: "https://dev.bluelabtech.space", color: "#10B981", glow: "hover:shadow-emerald-500/5 hover:border-emerald-500/30" },
-              ].map((project) => (
-                <a
-                  key={project.name}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group/item border border-white/5 bg-white/[0.01] rounded-2xl p-5 flex items-center justify-between relative overflow-hidden transition-all duration-300 ${project.glow} hover:bg-white/[0.03] hover:scale-[1.02] active:scale-[0.98]`}
-                >
-                  <div className="min-w-0">
-                    <p className="text-white text-base font-semibold tracking-wide transition-colors group-hover/item:text-white">{project.name}</p>
-                    <p className="text-zinc-500 text-sm mt-1.5">{project.desc}</p>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 group-hover/item:bg-white/10 group-hover/item:text-white transition-all">
-                    <ExternalLink size={12} />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="text-[10px] text-zinc-550 font-mono tracking-wider text-right">
-            01 / 03 LIVE PROJECTS
-          </div>
-        </BentoCard>
-
         {/* === ROW 3 === */}
 
-        {/* 6. Tech Stack Card (Col 1-4 / 12) */}
+        {/* 5. Tech Stack Card (Col 1-4 / 12) */}
         <BentoCard
-          delay={5}
+          delay={4}
           className="md:col-span-4 p-10 min-h-[260px] flex flex-col justify-between"
         >
           <div className="section-label mb-6">⚡ Skills & Tools</div>
@@ -393,9 +349,9 @@ export default function HeroBento() {
           </div>
         </BentoCard>
 
-        {/* 7. Location Card (Col 5-8 / 12) */}
+        {/* 6. Location Card (Col 5-8 / 12) */}
         <BentoCard
-          delay={6}
+          delay={5}
           className="md:col-span-4 p-10 relative overflow-hidden min-h-[260px] flex flex-col justify-between"
         >
           {/* Sonar Radar sweep background */}
@@ -430,9 +386,9 @@ export default function HeroBento() {
           </div>
         </BentoCard>
 
-        {/* 8. Quick Stats Card (Col 9-12 / 12) */}
+        {/* 7. Quick Stats Card (Col 9-12 / 12) */}
         <BentoCard
-          delay={7}
+          delay={6}
           className="md:col-span-4 p-10 flex flex-col justify-between min-h-[260px]"
         >
           <div className="section-label mb-6">📊 Quick Stats</div>
