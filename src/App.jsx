@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader';
-import Navbar from './components/Navbar';
 import HeroBento from './components/HeroBento';
+import EcosystemShowcase from './components/EcosystemShowcase';
 import SelectedWorks from './components/SelectedWorks';
 import Articles from './components/Articles';
 import Footer from './components/Footer';
@@ -49,12 +49,13 @@ export default function App() {
 
       {!isLoading && (
         <div className="min-h-screen text-zinc-100 relative selection:bg-violet-500/30 selection:text-white">
+          
           {/* Cinematic Background Canvas and overlays */}
           <CinematicBackground />
           
-          <Navbar />
           <main className="relative z-10">
             <HeroBento />
+            <EcosystemShowcase />
             <SelectedWorks />
             <Articles />
           </main>

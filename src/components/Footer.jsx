@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, ArrowUpRight, Heart, Coffee } from 'lucide-react';
 import Signature from './Signature';
@@ -46,10 +46,10 @@ export default function Footer() {
         className="text-center mb-16 relative z-10"
       >
         <span className="section-label">🤝 Get In Touch</span>
-        <h2 className="text-4xl md:text-6xl font-display font-medium text-white mt-4 tracking-tight">
+        <h2 className="text-5xl md:text-7xl font-display font-medium text-white mt-4 tracking-tight">
           Let's Connect!
         </h2>
-        <p className="text-zinc-400 text-sm md:text-base mt-4 max-w-md mx-auto font-light leading-relaxed">
+        <p className="text-zinc-400 text-base md:text-lg mt-4 max-w-lg mx-auto font-light leading-relaxed">
           Whether it's a freelance project, internship, or just a chat — my inbox is always open!
         </p>
       </motion.div>
@@ -158,8 +158,8 @@ function ContactCard({ link, index }) {
           <link.icon size={18} style={{ color: link.color }} />
         </div>
         <div>
-          <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono font-medium">{link.label}</p>
-          <p className="text-sm font-semibold text-zinc-300 group-hover:text-white transition-colors mt-0.5">
+          <p className="text-xs text-zinc-500 uppercase tracking-widest font-mono font-medium">{link.label}</p>
+          <p className="text-base font-semibold text-zinc-300 group-hover:text-white transition-colors mt-0.5">
             {link.value}
           </p>
         </div>

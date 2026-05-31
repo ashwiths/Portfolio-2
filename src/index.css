@@ -12,17 +12,24 @@
   --color-bg: #050505;
   --color-card: #0d0d0d;
   --color-card-hover: #121212;
-  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-card-border: rgba(255, 255, 255, 0.05);
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
   --color-text-muted: #52525b;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-blue: #3b82f6;
-  --color-divider: rgba(255, 255, 255, 0.08);
+  --color-divider: rgba(255, 255, 255, 0.05);
+
+  /* Custom intermediary shades */
+  --color-zinc-350: #babac0;
+  --color-zinc-405: #9b9ba4;
+  --color-zinc-450: #898992;
+  --color-zinc-550: #61616a;
+  --color-violet-650: #7432e2;
 }
 
-/* Base Body Styles */
+/* Base Body & Heading Styles */
 body {
   margin: 0;
   padding: 0;
@@ -33,25 +40,36 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.025em;
 }
+
+/* Custom Scrollbar - Sleeker & Cinematic */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
 ::-webkit-scrollbar-track {
   background: #050505;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-  border: 2px solid #050505;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* Selection Highlight */
 ::selection {
-  background: rgba(124, 58, 237, 0.3);
+  background: rgba(124, 58, 237, 0.25);
   color: #ffffff;
 }
 
@@ -60,27 +78,100 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Bento Card - Glassmorphism, inner shadow, soft border */
+.bg-noise-overlay {
+  opacity: 0.03;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Bento Card - Glassmorphism, inner lighting, soft border, layered shadow */
 .bento-card {
   position: relative;
-  background: rgba(13, 13, 13, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
+  background: rgba(10, 10, 10, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
   overflow: hidden;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  transition: border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-              background-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 16px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.01);
+  transition: border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Static Glowing background gradient on hover (completely GPU friendly, no JS mousemove lag) */
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background: radial-gradient(
+    circle at center,
+    rgba(124, 58, 237, 0.08) 0%,
+    rgba(59, 130, 246, 0.04) 50%,
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
+}
+
+/* Specular Border Glow using mask-composite to isolate the outline */
+.bento-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(124, 58, 237, 0.22) 30%,
+    rgba(59, 130, 246, 0.18) 70%,
+    rgba(255, 255, 255, 0.04)
+  ) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0) border-box;
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.bento-card:hover::after {
+  opacity: 1;
+}
+
+/* Soft Border Glow and Shadow Lift on Card Hover */
+.bento-card:hover {
+  background: rgba(15, 15, 15, 0.75);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 12px 24px rgba(0, 0, 0, 0.5),
+    0 32px 70px rgba(124, 58, 237, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 /* Section label - luxury uppercase tracking */
 .section-label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -111,6 +202,7 @@ body {
   background-position: left bottom;
   transition: background-size 0.3s ease, color 0.3s ease;
 }
+
 .accent-link:hover {
   background-size: 100% 1px;
 }
@@ -144,12 +236,10 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent);
   transition: 0.5s;
 }
 
@@ -161,7 +251,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
-  box-shadow: 
+  box-shadow:
     0 10px 20px -10px rgba(124, 58, 237, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -180,6 +270,7 @@ body {
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
 }
+
 .social-icon-btn:hover {
   background: #ffffff;
   color: #050505;
@@ -226,7 +317,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
@@ -253,6 +344,7 @@ body {
   0% {
     background-position: 0px 0px;
   }
+
   100% {
     background-position: 48px 48px;
   }
@@ -264,10 +356,13 @@ body {
 
 /* Slow Breathing Gradients */
 @keyframes pulse-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
     opacity: 0.12;
   }
+
   50% {
     transform: translate(8%, 4%) scale(1.05);
     opacity: 0.18;
@@ -275,10 +370,13 @@ body {
 }
 
 @keyframes pulse-slow-reverse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
     opacity: 0.15;
   }
+
   50% {
     transform: translate(-6%, -8%) scale(1.08);
     opacity: 0.22;
@@ -298,12 +396,10 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 28px;
-  background: radial-gradient(
-    600px circle at var(--x, 0px) var(--y, 0px),
-    rgba(255, 255, 255, 0.04),
-    transparent 40%
-  );
+  border-radius: 32px;
+  background: radial-gradient(600px circle at var(--x, 0px) var(--y, 0px),
+      rgba(255, 255, 255, 0.04),
+      transparent 40%);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -333,4 +429,73 @@ html.lenis {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* Custom keyframes for premium coffee steam and pulsing heart */
+@keyframes steam-rise {
+  0% {
+    transform: translateY(4px) scaleX(0.8);
+    stroke-dashoffset: 20;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.5;
+  }
+
+  60% {
+    stroke-dashoffset: 0;
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-16px) scaleX(1.2);
+    stroke-dashoffset: -20;
+    opacity: 0;
+  }
+}
+
+.steam-path {
+  stroke-dasharray: 20;
+  animation: steam-rise 3s ease-in-out infinite;
+}
+
+.steam-path-1 {
+  animation-delay: 0.2s;
+}
+
+.steam-path-2 {
+  animation-delay: 1.2s;
+}
+
+.steam-path-3 {
+  animation-delay: 2.2s;
+}
+
+@keyframes heart-beat {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.2));
+  }
+
+  25% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));
+  }
+
+  40% {
+    transform: scale(1.05);
+  }
+
+  60% {
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7));
+  }
+}
+
+.animate-heart-beat {
+  animation: heart-beat 1.6s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
 }

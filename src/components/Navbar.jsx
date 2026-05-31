@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ashilImage from '../assets/ashil.jpeg';
 
@@ -95,7 +95,7 @@ export default function Navbar() {
                 {activeSection === link.href.slice(1) && (
                   <motion.div
                     layoutId="navActive"
-                    className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/5"
+                    className="absolute inset-0 rounded-full bg-white/[0.07] border border-violet-500/20 shadow-[0_0_12px_rgba(124,58,237,0.15)]"
                     transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
                     style={{ zIndex: -1 }}
                   />
