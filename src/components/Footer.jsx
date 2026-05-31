@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, ArrowUpRight, Heart, Coffee } from 'lucide-react';
 import Signature from './Signature';
 
 /**
- * Contact Footer — ashil.space exact data
- * Email: infantashil55@gmail.com
- * GitHub: github.com/ashwiths
- * LinkedIn: infant-ashil-a
+ * Contact Footer in premium dark mode
  */
 
 const contactLinks = [
@@ -16,75 +13,51 @@ const contactLinks = [
     label: "Email",
     value: "infantashil55@gmail.com",
     href: "mailto:infantashil55@gmail.com",
-    color: "#ff6b35",
+    color: "#3B82F6",
   },
   {
     icon: Github,
     label: "GitHub",
     value: "github.com/ashwiths",
     href: "https://github.com/ashwiths",
-    color: "#f5f5f5",
+    color: "#ffffff",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
     value: "infant-ashil-a",
     href: "https://linkedin.com/in/infant-ashil-a",
-    color: "#3b82f6",
+    color: "#7C3AED",
   },
 ];
 
 export default function Footer() {
   return (
-    <footer id="contact" className="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-32">
+    <footer id="contact" className="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-32 relative overflow-hidden">
+      {/* Background soft glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60vw] h-[250px] bg-gradient-to-t from-violet-600/10 to-transparent blur-[100px] pointer-events-none z-0" />
       
       {/* CTA Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center mb-16"
+        viewport={{ once: true, margin: "-85px" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="text-center mb-16 relative z-10"
       >
         <span className="section-label">🤝 Get In Touch</span>
-        <h2 className="text-3xl md:text-5xl font-serif text-zinc-900 mt-3">
+        <h2 className="text-4xl md:text-6xl font-display font-medium text-white mt-4 tracking-tight">
           Let's Connect!
         </h2>
-        <p className="text-zinc-500 text-base mt-4 max-w-md mx-auto">
+        <p className="text-zinc-400 text-sm md:text-base mt-4 max-w-md mx-auto font-light leading-relaxed">
           Whether it's a freelance project, internship, or just a chat — my inbox is always open!
         </p>
       </motion.div>
 
       {/* Contact Cards */}
-      <div className="flex flex-col gap-3 max-w-xl mx-auto mb-24">
+      <div className="flex flex-col gap-4 max-w-xl mx-auto mb-20 relative z-10">
         {contactLinks.map((link, index) => (
-          <motion.a
-            key={link.label}
-            href={link.href}
-            target={link.label !== "Email" ? "_blank" : undefined}
-            rel={link.label !== "Email" ? "noopener noreferrer" : undefined}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="bento-card p-5 flex items-center justify-between group cursor-pointer hover:border-zinc-300 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: link.color + '15' }}
-              >
-                <link.icon size={18} style={{ color: link.color }} />
-              </div>
-              <div>
-                <p className="text-xs text-zinc-400 uppercase tracking-wider">{link.label}</p>
-                <p className="text-sm text-zinc-650 font-medium group-hover:text-zinc-950 transition-colors">
-                  {link.value}
-                </p>
-              </div>
-            </div>
-            <Send size={14} className="text-zinc-300 group-hover:text-zinc-950 transition-colors" />
-          </motion.a>
+          <ContactCard key={link.label} link={link} index={index} />
         ))}
       </div>
 
@@ -93,31 +66,31 @@ export default function Footer() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="text-center mb-20"
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="text-center mb-24 relative z-10"
       >
         <a
           href="mailto:infantashil55@gmail.com"
-          className="glass-btn inline-flex items-center gap-2 px-8 py-3 text-base"
+          className="glass-btn inline-flex items-center gap-3 px-8 py-4 text-base font-semibold group"
         >
-          <Mail size={16} />
+          <Mail size={18} className="text-violet-400 group-hover:scale-110 transition-transform" />
           Say Hello
-          <ArrowUpRight size={14} />
+          <ArrowUpRight size={16} className="text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </a>
       </motion.div>
 
       {/* --- Bottom Bar --- */}
-      <div className="border-t border-zinc-200/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         {/* Signature */}
         <div>
           <Signature
-            className="w-32 h-10 opacity-50 hover:opacity-90 transition-opacity"
-            color="#09090b"
+            className="w-32 h-10 opacity-70 hover:opacity-100 transition-opacity"
+            color="#ffffff"
             delay={0}
-            strokeWidth={1.5}
+            strokeWidth={1.6}
           />
-          <p className="text-[10px] text-zinc-450 mt-1 flex items-center gap-1">
-            Made with <Heart size={10} className="text-red-500" /> and a lot of <Coffee size={10} /> ☕
+          <p className="text-[10px] text-zinc-550 mt-2 flex items-center gap-1 font-mono">
+            Made with <Heart size={10} className="text-violet-500 fill-current animate-pulse" /> and <Coffee size={10} className="text-zinc-400" />
           </p>
         </div>
 
@@ -135,10 +108,63 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-[11px] text-zinc-450">
+        <p className="text-[11px] text-zinc-500 font-mono tracking-wider">
           © {new Date().getFullYear()} Infant Ashil A
         </p>
       </div>
     </footer>
+  );
+}
+
+// Subcomponent: Contact Link Card with Spotlight
+function ContactCard({ link, index }) {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <motion.a
+      href={link.href}
+      target={link.label !== "Email" ? "_blank" : undefined}
+      rel={link.label !== "Email" ? "noopener noreferrer" : undefined}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="bento-card p-5 flex items-center justify-between group cursor-pointer relative overflow-hidden"
+    >
+      {/* Spotlight Border */}
+      <div
+        className="absolute inset-0 rounded-[28px] pointer-events-none transition-opacity duration-500 z-20"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(130px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.1), transparent 80%)`,
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+        }}
+      />
+      <div className="flex items-center gap-4 relative z-10">
+        <div
+          className="w-11 h-11 rounded-2xl flex items-center justify-center border"
+          style={{ backgroundColor: link.color + '15', borderColor: link.color + '30' }}
+        >
+          <link.icon size={18} style={{ color: link.color }} />
+        </div>
+        <div>
+          <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono font-medium">{link.label}</p>
+          <p className="text-sm font-semibold text-zinc-300 group-hover:text-white transition-colors mt-0.5">
+            {link.value}
+          </p>
+        </div>
+      </div>
+      <Send size={15} className="text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition-all relative z-10" />
+    </motion.a>
   );
 }

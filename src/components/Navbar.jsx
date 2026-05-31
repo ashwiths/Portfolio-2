@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ashilImage from '../assets/ashil.jpeg';
 
-
 /**
  * Floating pill navigation bar — reubence.com exact style
  * For "Infant Ashil" branding
@@ -61,22 +60,24 @@ export default function Navbar() {
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -80, opacity: 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-50"
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed top-5 left-1/2 -translate-x-1/2 z-50"
         >
-          <div className="flex items-center gap-1 px-2 py-2 rounded-full bg-white/80 border border-zinc-200/60 backdrop-blur-xl shadow-md">
+          <div className="flex items-center gap-1.5 px-2.5 py-2.5 rounded-full bg-black/60 border border-white/8 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
             
             {/* Avatar / Logo */}
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#ff6b35] to-[#ff4500] flex items-center justify-center mr-1 flex-shrink-0 overflow-hidden">
-              <img
-                src={ashilImage}
-                alt="IA"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span class="text-white text-xs font-bold">IA</span>';
-                }}
-              />
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] p-[1.5px] mr-1.5 flex-shrink-0 overflow-hidden ring-1 ring-white/10">
+              <div className="w-full h-full rounded-full overflow-hidden bg-zinc-950 flex items-center justify-center">
+                <img
+                  src={ashilImage}
+                  alt="IA"
+                  className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-300"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = '<span class="text-white text-[10px] font-bold">IA</span>';
+                  }}
+                />
+              </div>
             </div>
 
             {/* Nav links */}
@@ -85,17 +86,17 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`relative px-4 py-1.5 text-xs font-medium tracking-wide capitalize transition-colors duration-200 rounded-full ${
+                className={`relative px-4 py-1.5 text-xs font-semibold tracking-wide capitalize transition-colors duration-300 rounded-full ${
                   activeSection === link.href.slice(1)
-                    ? 'text-zinc-900'
-                    : 'text-zinc-500 hover:text-zinc-900'
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {activeSection === link.href.slice(1) && (
                   <motion.div
                     layoutId="navActive"
-                    className="absolute inset-0 rounded-full bg-zinc-100"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/5"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
                     style={{ zIndex: -1 }}
                   />
                 )}
