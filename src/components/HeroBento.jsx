@@ -308,174 +308,101 @@ export default function HeroBento() {
 
         {/* === ROW 3 === */}
 
-        {/* 5. Tech Stack Card (Col 1-4 / 12) */}
+        {/* 7. Mini React Native App Showcase Widget (Col 1-12 / 12) - Centered Showcase */}
         <BentoCard
           delay={4}
-          className="md:col-span-4 p-10 min-h-[260px] flex flex-col justify-between"
+          className="md:col-span-12 p-8 min-h-[280px] flex flex-col justify-center items-center premium-border-card"
         >
-          <div className="section-label mb-6">⚡ Skills & Tools</div>
-          <div className="flex flex-wrap gap-2.5 mt-auto">
-            {['HTML', 'CSS', 'React', 'JavaScript', 'Node.js', 'Express', 'Tailwind', 'MongoDB', 'Python', 'Web Perf'].map((tech) => (
-              <motion.span
-                key={tech}
-                whileHover={{ scale: 1.06, y: -2 }}
-                transition={{ type: "spring", stiffness: 450, damping: 12 }}
-                className="px-3 py-1.5 rounded-xl bg-white/[0.03] border border-white/5 text-sm text-zinc-300 hover:border-violet-500/30 hover:text-white hover:bg-violet-500/[0.04] transition-all cursor-default shadow-sm"
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
-        </BentoCard>
-
-        {/* 6. Location Card (Col 5-8 / 12) */}
-        <BentoCard
-          delay={5}
-          className="md:col-span-4 p-10 relative overflow-hidden min-h-[260px] flex flex-col justify-between"
-        >
-          {/* Sonar Radar sweep background */}
-          <div className="absolute inset-0 opacity-[0.15] pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 75% 60%, var(--color-accent) 0%, transparent 60%)',
-            }}
-          />
-
-          {/* Sonar sweep line effect */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-violet-500/10 rounded-full animate-ping pointer-events-none" style={{ animationDuration: '4s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border border-violet-500/10 rounded-full animate-ping pointer-events-none" style={{ animationDuration: '6s', animationDelay: '1s' }} />
-
-          <div className="section-label">📍 Nearby</div>
-
-          <div className="mt-auto relative z-10 flex items-end justify-between gap-2">
-            <div>
-              <p className="text-xl md:text-2xl font-serif font-normal text-white">Coimbatore, India 🇮🇳</p>
-              <p className="text-xs text-zinc-405 mt-1.5 font-mono tracking-wider">
-                UTC +05:30 • Remote
-              </p>
-            </div>
-
-            {/* Live radar locator */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[0.04] border border-white/5 font-mono text-[9px] text-zinc-405 flex-shrink-0">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-violet-500" />
-              </span>
-              SYS.ACTIVE
-            </div>
-          </div>
-        </BentoCard>
-
-        {/* 7. Mini React Native App Showcase Widget (Col 9-12 / 12) */}
-        <BentoCard
-          delay={6}
-          className="md:col-span-4 p-5 min-h-[260px] flex flex-col justify-between premium-border-card"
-        >
-          {/* Top layout */}
-          <div className="w-full text-left">
-            <div className="flex items-center justify-between">
-              <span className="text-white text-xs font-semibold tracking-wide font-display uppercase flex items-center gap-1.5">
+          <div className="max-w-[420px] w-full flex flex-col justify-between h-full gap-4">
+            {/* Top layout */}
+            <div className="w-full text-left">
+              <span className="todo-widget-title">
                 📝 To|Do
               </span>
-              <span className="px-2 py-0.5 rounded bg-white/[0.03] border border-white/[0.06] text-[8px] text-zinc-400/60 font-mono uppercase tracking-wider">
-                App Widget
-              </span>
-            </div>
-            <p className="text-zinc-400/75 text-[9px] md:text-[10px] mt-0.5 font-sans tracking-tight">
-              Smart productivity workspace
-            </p>
-          </div>
-
-          {/* Center layout: Mini Productivity Dashboard */}
-          <div className="flex-grow flex items-center justify-between my-2.5 relative h-[90px] w-full px-0.5">
-            <div className="dashboard-glowback-mini" />
-            
-            {/* Left side: Progress Ring */}
-            <div className="flex items-center gap-2">
-              <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                  {/* Background track */}
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="3" />
-                  {/* Progress arc */}
-                  <motion.circle 
-                    cx="18" cy="18" r="15.915" fill="none" 
-                    stroke="url(#todoGlowGrad)" strokeWidth="3.2" 
-                    strokeDasharray="86 100" 
-                    initial={{ strokeDashoffset: 100 }}
-                    animate={{ strokeDashoffset: 0 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                  />
-                  <defs>
-                    <linearGradient id="todoGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#7c3aed" />
-                      <stop offset="100%" stopColor="#3b82f6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <span className="absolute text-[9px] font-mono font-bold text-white">86%</span>
-              </div>
-              <div className="text-left">
-                <span className="text-[8px] text-zinc-500 font-mono block leading-none">EFFICIENCY</span>
-                <span className="text-white text-[10px] font-mono font-semibold tracking-wide mt-1 block">OPTIMAL</span>
-              </div>
             </div>
 
-            {/* Right side: Compact Tasks */}
-            <div className="flex flex-col gap-1.5 min-w-0">
-              <div className="flex items-center gap-1.5 text-left bg-white/[0.02] border border-white/[0.06] py-0.5 px-2 rounded-md select-none">
-                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-violet-500" />
-                </span>
-                <span className="text-[8px] text-zinc-300/90 font-mono tracking-tight truncate max-w-[80px]">Focus Mode active</span>
-              </div>
+            {/* Center layout: Mini Productivity Dashboard */}
+            <div className="flex-grow flex items-center justify-between my-2 relative h-[90px] w-full px-0.5">
+              <div className="dashboard-glowback-mini" />
               
-              <div className="flex flex-col gap-0.5 text-left pl-1">
-                <div className="flex items-center gap-1 text-[8px] text-zinc-500 line-through">
-                  <span className="text-indigo-400 font-bold">✓</span>
-                  <span className="truncate max-w-[80px]">Sync database</span>
+              {/* Left side: Progress Ring */}
+              <div className="flex items-center gap-3">
+                <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                    {/* Background track */}
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="3" />
+                    {/* Progress arc */}
+                    <motion.circle 
+                      cx="18" cy="18" r="15.915" fill="none" 
+                      stroke="url(#todoGlowGrad)" strokeWidth="3.2" 
+                      strokeDasharray="86 100" 
+                      initial={{ strokeDashoffset: 100 }}
+                      animate={{ strokeDashoffset: 0 }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                    />
+                    <defs>
+                      <linearGradient id="todoGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#7c3aed" />
+                        <stop offset="100%" stopColor="#3b82f6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <span className="absolute todo-widget-circle-text">86%</span>
                 </div>
-                <div className="flex items-center gap-1 text-[8px] text-zinc-200">
+                <div className="text-left flex flex-col justify-center">
+                  <span className="todo-widget-efficiency-label block leading-none">EFFICIENCY</span>
+                  <span className="todo-widget-efficiency-value mt-[1px] block leading-none">OPTIMAL</span>
+                </div>
+              </div>
+
+              {/* Right side: Compact Tasks */}
+              <div className="flex flex-col gap-2 min-w-0 pr-1.5 justify-center h-full">
+                <div className="todo-widget-task-item completed">
+                  <span className="text-indigo-400 font-bold leading-none">✓</span>
+                  <span className="truncate max-w-[140px]">Sync database</span>
+                </div>
+                <div className="todo-widget-task-item active">
                   <motion.span 
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 1.8, repeat: Infinity }}
-                    className="text-violet-400 font-bold"
+                    className="text-violet-400 font-bold leading-none"
                   >
                     ✓
                   </motion.span>
-                  <span className="truncate max-w-[80px]">Optimize model</span>
+                  <span className="truncate max-w-[140px]">Optimize model</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Features Row */}
-          <div className="grid grid-cols-2 gap-x-2 gap-y-1 w-full text-left py-2 border-t border-b border-white/[0.06]">
-            {[
-              "Smart Tasks",
-              "Daily Planner",
-              "Focus Mode",
-              "AI Productivity"
-            ].map((feat) => (
-              <div key={feat} className="flex items-center gap-1.5 text-zinc-405 text-[8px] font-semibold font-mono uppercase tracking-wider">
-                <span className="text-violet-400">✦</span>
-                <span>{feat}</span>
-              </div>
-            ))}
-          </div>
+            {/* Features Row */}
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 w-full text-left py-2.5 border-t border-b border-white/[0.06]">
+              {[
+                "Smart Tasks",
+                "Daily Planner",
+                "Focus Mode",
+                "AI Productivity"
+              ].map((feat) => (
+                <div key={feat} className="todo-widget-feature-item">
+                  <span className="accent-star">✦</span>
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
 
-          {/* Bottom layout: Compact APK Download */}
-          <div className="w-full flex flex-col items-center gap-1 pt-2 border-t border-white/[0.06] mt-auto">
-            <a 
-              href="/todo.apk"
-              download="todo.apk"
-              className="download-apk-btn-mini"
-            >
-              <AndroidIcon className="w-3 h-3 fill-white stroke-none" />
-              <span>⬇ Download APK</span>
-            </a>
-            <span className="text-[8px] text-zinc-500 font-mono tracking-wider">
-              v1.0.0 Android
-            </span>
+            {/* Bottom layout: Compact APK Download */}
+            <div className="w-full flex flex-col items-center gap-1 pt-3.5 border-t border-white/[0.06] mt-auto">
+              <a 
+                href="/todo.apk"
+                download="todo.apk"
+                className="download-apk-btn-mini"
+              >
+                <AndroidIcon className="w-3.5 h-3.5 fill-white stroke-none" />
+                <span>⬇ Download APK</span>
+              </a>
+              <span className="todo-widget-version mt-1">
+                v1.0.0 Android
+              </span>
+            </div>
           </div>
         </BentoCard>
 

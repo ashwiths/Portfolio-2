@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 /**
  * Premium Realistic Handwritten Signature — "Infant Ashil"
  *
  * Performance Architecture:
  * ─────────────────────────────────────────────
- * • Pure CSS stroke-dashoffset animations (compositor thread) for 60+ FPS.
+ * • Web Animations API (Compositor Thread) for smooth 60+ FPS without style recalculation.
  * • Dual-layer paths: clean core ink + subtle glow trail.
  * • Strict path-based erasing: animating stroke-dashoffset from 0 to -L pulls the 
  *   stroke backward (end-to-start) to look exactly like unwriting.
@@ -14,7 +14,6 @@ import { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
  * Timing:
  * • Write Sequence: ~2.75s (natural handwriting flow with curves and pauses)
  * • Erase Sequence: ~1.5s (chronologically reversed path unwriting)
- * • Pause: ~0.2s
  */
 
 const STROKES = [
@@ -68,9 +67,8 @@ const STROKES = [
   },
 ];
 
-// Easings for handwriting (cubic-bezier)
-const EASE_WRITE = 'cubic-bezier(0.25, 0.1, 0.25, 1.0)';  // smooth pen movement
-const EASE_ERASE = 'cubic-bezier(0.25, 0.1, 0.25, 1.0)';  // natural reverse flow
+const EASE_WRITE = 'cubic-bezier(0.25, 0.1, 0.25, 1.0)';
+const EASE_ERASE = 'cubic-bezier(0.25, 0.1, 0.25, 1.0)';
 
 export default function Signature({
   className = '',
@@ -78,10 +76,12 @@ export default function Signature({
   strokeWidth = 1.5,
   delay = 0,
 }) {
-  const [anim, setAnim] = useState({ phase: 'idle', epoch: 0 });
+  const [phase, setPhase] = useState('idle');
   const [lengths, setLengths] = useState(null);
   const pathRefs = useRef([]);
-  const lockRef = useRef(false);
+  const glowPathRefs = useRef([]);
+  const activeAnimationsRef = useRef([]);
+  const timersRef = useRef([]);
 
   // Measure path lengths on mount
   useLayoutEffect(() => {
@@ -91,132 +91,158 @@ export default function Signature({
     setLengths(L);
   }, []);
 
-  // Initial trigger after mount
+  const clearTimers = () => {
+    timersRef.current.forEach((t) => clearTimeout(t));
+    timersRef.current = [];
+  };
+
+  const cancelAnimations = () => {
+    activeAnimationsRef.current.forEach((anim) => {
+      try {
+        anim.cancel();
+      } catch (e) {}
+    });
+    activeAnimationsRef.current = [];
+  };
+
+  // Clean up timers and animations on unmount
+  useEffect(() => {
+    return () => {
+      clearTimers();
+      cancelAnimations();
+    };
+  }, []);
+
+  // Trigger compositor-thread Web Animations
+  const triggerAnimation = (currentPhase) => {
+    if (!lengths) return;
+
+    cancelAnimations();
+
+    STROKES.forEach((s, i) => {
+      const L = lengths[i];
+      const coreEl = pathRefs.current[i];
+      const glowEl = glowPathRefs.current[i];
+
+      if (!coreEl || !glowEl) return;
+
+      let keyframes, options;
+      if (currentPhase === 'writing') {
+        keyframes = [
+          { strokeDashoffset: `${L}px` },
+          { strokeDashoffset: '0px' }
+        ];
+        options = {
+          duration: s.wd * 1000,
+          delay: s.wdel * 1000,
+          easing: EASE_WRITE,
+          fill: 'both'
+        };
+      } else if (currentPhase === 'erasing') {
+        keyframes = [
+          { strokeDashoffset: '0px' },
+          { strokeDashoffset: `-${L}px` }
+        ];
+        options = {
+          duration: s.ed * 1000,
+          delay: s.edel * 1000,
+          easing: EASE_ERASE,
+          fill: 'both'
+        };
+      } else {
+        // Idle / reset state
+        coreEl.style.strokeDashoffset = `${L}px`;
+        glowEl.style.strokeDashoffset = `${L}px`;
+        return;
+      }
+
+      const animCore = coreEl.animate(keyframes, options);
+      const animGlow = glowEl.animate(keyframes, options);
+      activeAnimationsRef.current.push(animCore, animGlow);
+    });
+  };
+
+  // Sync animations with phase state transitions
   useEffect(() => {
     if (!lengths) return;
-    const t = setTimeout(
-      () => setAnim({ phase: 'writing', epoch: 1 }),
-      200 + delay * 1000
-    );
+    triggerAnimation(phase);
+  }, [phase, lengths]);
+
+  // Initial draw trigger on load
+  useEffect(() => {
+    if (!lengths) return;
+    const t = setTimeout(() => {
+      setPhase('writing');
+    }, 200 + delay * 1000);
     return () => clearTimeout(t);
   }, [lengths, delay]);
 
-  // Hover cycle: Erase in reverse → brief pause → rewrite forward
-  const handleHover = async () => {
-    if (lockRef.current || !lengths) return;
-    lockRef.current = true;
+  const handleMouseEnter = () => {
+    if (!lengths) return;
 
-    // Erase sequence (ends at edel 1.43 + ed 0.15 = 1.58s)
-    setAnim((a) => ({ phase: 'erasing', epoch: a.epoch + 1 }));
-    await sleep(1650);
+    // Reset timers & cancel current animations immediately
+    clearTimers();
 
-    // Empty state pause (~0.2s)
-    setAnim((a) => ({ phase: 'idle', epoch: a.epoch }));
-    await sleep(200);
+    // Step 1: Start erasing (undo) immediately
+    setPhase('erasing');
 
-    // Rewrite sequence (ends at wdel 2.55 + wd 0.20 = 2.75s)
-    setAnim((a) => ({ phase: 'writing', epoch: a.epoch + 1 }));
-    await sleep(2950);
+    // Step 2: After erase completes (~1.6s), pause and rewrite (re-sign)
+    const t1 = setTimeout(() => {
+      setPhase('idle');
+      
+      const t2 = setTimeout(() => {
+        setPhase('writing');
+      }, 100);
 
-    lockRef.current = false;
+      timersRef.current.push(t2);
+    }, 1600);
+
+    timersRef.current.push(t1);
   };
-
-  // Build high-performance pure CSS keyframes
-  const css = useMemo(() => {
-    if (!lengths) return '';
-    const { phase, epoch } = anim;
-
-    return STROKES.map((s, i) => {
-      const L = lengths[i];
-      const id = `sg-${s.id}`;
-      const glowId = `sg-g-${s.id}`;
-      const kw = `w-${epoch}-${i}`;
-      const kwGlow = `wg-${epoch}-${i}`;
-      const ke = `e-${epoch}-${i}`;
-      const keGlow = `eg-${epoch}-${i}`;
-
-      if (phase === 'writing') {
-        return `
-          @keyframes ${kw} {
-            from { stroke-dashoffset: ${L}; }
-            to   { stroke-dashoffset: 0; }
-          }
-          @keyframes ${kwGlow} {
-            from { stroke-dashoffset: ${L}; }
-            to   { stroke-dashoffset: 0; }
-          }
-          #${id} {
-            stroke-dasharray: ${L};
-            stroke-dashoffset: ${L};
-            animation: ${kw} ${s.wd}s ${EASE_WRITE} ${s.wdel}s both;
-          }
-          #${glowId} {
-            stroke-dasharray: ${L};
-            stroke-dashoffset: ${L};
-            animation: ${kwGlow} ${s.wd}s ${EASE_WRITE} ${s.wdel}s both;
-          }
-        `;
-      }
-
-      if (phase === 'erasing') {
-        return `
-          @keyframes ${ke} {
-            from { stroke-dashoffset: 0; }
-            to   { stroke-dashoffset: -${L}; }
-          }
-          @keyframes ${keGlow} {
-            from { stroke-dashoffset: 0; }
-            to   { stroke-dashoffset: -${L}; }
-          }
-          #${id} {
-            stroke-dasharray: ${L};
-            stroke-dashoffset: 0;
-            animation: ${ke} ${s.ed}s ${EASE_ERASE} ${s.edel}s both;
-          }
-          #${glowId} {
-            stroke-dasharray: ${L};
-            stroke-dashoffset: 0;
-            animation: ${keGlow} ${s.ed}s ${EASE_ERASE} ${s.edel}s both;
-          }
-        `;
-      }
-
-      // Idle / initial state (erased / empty canvas)
-      return `
-        #${id} { stroke-dasharray: ${L}; stroke-dashoffset: ${L}; }
-        #${glowId} { stroke-dasharray: ${L}; stroke-dashoffset: ${L}; }
-      `;
-    }).join('\n');
-  }, [lengths, anim.phase, anim.epoch]);
 
   return (
     <div
       className={`relative select-none inline-block ${className}`}
-      onMouseEnter={handleHover}
+      onMouseEnter={handleMouseEnter}
       aria-label="Infant Ashil signature"
       style={{ cursor: 'pointer' }}
     >
-      <style>{css}</style>
-
       <svg
         viewBox="0 0 500 120"
         fill="none"
+        shapeRendering="geometricPrecision"
         style={{ overflow: 'visible', width: '100%', height: '100%' }}
       >
+        <defs>
+          <filter id="sig-glow-filter" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feColorMatrix type="matrix" values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 0.45 0
+            " />
+          </filter>
+        </defs>
+
         {/* Glow Trail Layer */}
         {STROKES.map((s, i) => (
           <path
             key={`glow-${s.id}`}
             id={`sg-g-${s.id}`}
+            ref={(el) => { glowPathRefs.current[i] = el; }}
             d={s.d}
             stroke={color}
-            strokeWidth={strokeWidth * 1.8}
+            strokeWidth={strokeWidth * 2.2}
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#sig-glow-filter)"
+            shapeRendering="geometricPrecision"
             style={{
               pointerEvents: 'none',
               willChange: 'stroke-dashoffset',
-              filter: 'blur(1.5px)',
+              strokeDasharray: lengths ? lengths[i] : 400,
+              strokeDashoffset: lengths ? lengths[i] : 400,
             }}
           />
         ))}
@@ -232,9 +258,12 @@ export default function Signature({
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
+            shapeRendering="geometricPrecision"
             style={{
               pointerEvents: 'none',
               willChange: 'stroke-dashoffset',
+              strokeDasharray: lengths ? lengths[i] : 400,
+              strokeDashoffset: lengths ? lengths[i] : 400,
             }}
           />
         ))}
@@ -242,5 +271,3 @@ export default function Signature({
     </div>
   );
 }
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
