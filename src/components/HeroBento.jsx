@@ -4,6 +4,15 @@ import { Github, Linkedin, ExternalLink, Sparkles, Heart } from 'lucide-react';
 import Signature from './Signature';
 import ashilImage from '../assets/ashil.jpeg';
 
+// Premium Android SVG Icon component
+function AndroidIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-5.8-5.69l1.2-1.2a.495.495 0 000-.7.495.495 0 00-.7 0l-1.37 1.37A6.87 6.87 0 0012 3c-1.22 0-2.37.32-3.37.88L7.26 2.51a.495.495 0 00-.7 0 .495.495 0 000 .7l1.2 1.2C6.18 5.66 5 7.69 5 10h14c0-2.31-1.18-4.34-2.77-5.69zM9 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
+    </svg>
+  );
+}
+
 /**
  * Symmetrical 12-column Bento Grid for Infant Ashil A
  * Restored with premium cinematic animations and performance-optimized hover structures.
@@ -19,37 +28,7 @@ const greetings = [
   "Ciao! 🇮🇹",
 ];
 
-// Helper to animate count counters
-function AnimatedCounter({ value, duration = 1.2 }) {
-  const numericValue = parseInt(value, 10);
-  const isString = isNaN(numericValue);
-  const [count, setCount] = useState(isString ? value : 0);
 
-  useEffect(() => {
-    if (isString) return;
-
-    let start = 0;
-    const end = numericValue;
-    const startTime = performance.now();
-
-    function updateCount(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / (duration * 1000), 1);
-      const easeProgress = progress * (2 - progress); // Ease out quad
-
-      setCount(Math.floor(easeProgress * (end - start) + start));
-
-      if (progress < 1) {
-        requestAnimationFrame(updateCount);
-      }
-    }
-
-    requestAnimationFrame(updateCount);
-  }, [value, duration, numericValue, isString]);
-
-  if (isString) return <span>{count}</span>;
-  return <span>{count}{value.includes('+') ? '+' : ''}</span>;
-}
 
 // Custom reusable premium Bento Card wrapper with restored blur stagger (optimized - no mouse tracking)
 function BentoCard({ children, className = "", delay = 0, style = {} }) {
@@ -386,26 +365,117 @@ export default function HeroBento() {
           </div>
         </BentoCard>
 
-        {/* 7. Quick Stats Card (Col 9-12 / 12) */}
+        {/* 7. Mini React Native App Showcase Widget (Col 9-12 / 12) */}
         <BentoCard
           delay={6}
-          className="md:col-span-4 p-10 flex flex-col justify-between min-h-[260px]"
+          className="md:col-span-4 p-5 min-h-[260px] flex flex-col justify-between premium-border-card"
         >
-          <div className="section-label mb-6">📊 Quick Stats</div>
-          <div className="grid grid-cols-2 gap-4 mt-auto">
+          {/* Top layout */}
+          <div className="w-full text-left">
+            <div className="flex items-center justify-between">
+              <span className="text-white text-xs font-semibold tracking-wide font-display uppercase flex items-center gap-1.5">
+                📝 To|Do
+              </span>
+              <span className="px-2 py-0.5 rounded bg-white/[0.03] border border-white/[0.06] text-[8px] text-zinc-400/60 font-mono uppercase tracking-wider">
+                App Widget
+              </span>
+            </div>
+            <p className="text-zinc-400/75 text-[9px] md:text-[10px] mt-0.5 font-sans tracking-tight">
+              Smart productivity workspace
+            </p>
+          </div>
+
+          {/* Center layout: Mini Productivity Dashboard */}
+          <div className="flex-grow flex items-center justify-between my-2.5 relative h-[90px] w-full px-0.5">
+            <div className="dashboard-glowback-mini" />
+            
+            {/* Left side: Progress Ring */}
+            <div className="flex items-center gap-2">
+              <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                  {/* Background track */}
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="3" />
+                  {/* Progress arc */}
+                  <motion.circle 
+                    cx="18" cy="18" r="15.915" fill="none" 
+                    stroke="url(#todoGlowGrad)" strokeWidth="3.2" 
+                    strokeDasharray="86 100" 
+                    initial={{ strokeDashoffset: 100 }}
+                    animate={{ strokeDashoffset: 0 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                  />
+                  <defs>
+                    <linearGradient id="todoGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#7c3aed" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <span className="absolute text-[9px] font-mono font-bold text-white">86%</span>
+              </div>
+              <div className="text-left">
+                <span className="text-[8px] text-zinc-500 font-mono block leading-none">EFFICIENCY</span>
+                <span className="text-white text-[10px] font-mono font-semibold tracking-wide mt-1 block">OPTIMAL</span>
+              </div>
+            </div>
+
+            {/* Right side: Compact Tasks */}
+            <div className="flex flex-col gap-1.5 min-w-0">
+              <div className="flex items-center gap-1.5 text-left bg-white/[0.02] border border-white/[0.06] py-0.5 px-2 rounded-md select-none">
+                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-violet-500" />
+                </span>
+                <span className="text-[8px] text-zinc-300/90 font-mono tracking-tight truncate max-w-[80px]">Focus Mode active</span>
+              </div>
+              
+              <div className="flex flex-col gap-0.5 text-left pl-1">
+                <div className="flex items-center gap-1 text-[8px] text-zinc-500 line-through">
+                  <span className="text-indigo-400 font-bold">✓</span>
+                  <span className="truncate max-w-[80px]">Sync database</span>
+                </div>
+                <div className="flex items-center gap-1 text-[8px] text-zinc-200">
+                  <motion.span 
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                    className="text-violet-400 font-bold"
+                  >
+                    ✓
+                  </motion.span>
+                  <span className="truncate max-w-[80px]">Optimize model</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Features Row */}
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1 w-full text-left py-2 border-t border-b border-white/[0.06]">
             {[
-              { value: "12+", label: "Projects" },
-              { value: "3+", label: "Live Products" },
-              { value: "CS", label: "Education" },
-              { value: "CEO", label: "BlueLab" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center bg-white/[0.02] py-3.5 px-2 rounded-2xl border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all">
-                <p className="text-xl md:text-2xl font-bold text-white font-display">
-                  <AnimatedCounter value={stat.value} />
-                </p>
-                <p className="text-[11px] md:text-xs text-zinc-400 mt-0.5 uppercase tracking-widest font-mono font-medium">{stat.label}</p>
+              "Smart Tasks",
+              "Daily Planner",
+              "Focus Mode",
+              "AI Productivity"
+            ].map((feat) => (
+              <div key={feat} className="flex items-center gap-1.5 text-zinc-405 text-[8px] font-semibold font-mono uppercase tracking-wider">
+                <span className="text-violet-400">✦</span>
+                <span>{feat}</span>
               </div>
             ))}
+          </div>
+
+          {/* Bottom layout: Compact APK Download */}
+          <div className="w-full flex flex-col items-center gap-1 pt-2 border-t border-white/[0.06] mt-auto">
+            <a 
+              href="/todo.apk"
+              download="todo.apk"
+              className="download-apk-btn-mini"
+            >
+              <AndroidIcon className="w-3 h-3 fill-white stroke-none" />
+              <span>⬇ Download APK</span>
+            </a>
+            <span className="text-[8px] text-zinc-500 font-mono tracking-wider">
+              v1.0.0 Android
+            </span>
           </div>
         </BentoCard>
 

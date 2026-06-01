@@ -499,3 +499,352 @@ html.lenis {
   animation: heart-beat 1.6s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
   transform-origin: center;
 }
+
+/* ==========================================================================
+   PREMIUM MOBILE APP SHOWCASE SYSTEM (Antigravity Showcase)
+   ========================================================================== */
+
+/* 3D Perspective and Layout Wrappers */
+.phone-perspective {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Floating animation applied to parent wrapper */
+.phone-float-wrapper {
+  animation: phoneFloat 7s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes phoneFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Phone Mockup Frame */
+.phone-mockup-frame {
+  position: relative;
+  width: 270px;
+  height: 550px;
+  border-radius: 42px;
+  background: #000000;
+  border: 10px solid #1c1c1e;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.85),
+    0 0 50px rgba(124, 58, 237, 0.15),
+    inset 0 0 2px 2px rgba(255, 255, 255, 0.15);
+  transform: rotateY(-12deg) rotateX(8deg) rotateZ(-2deg);
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Dynamic screen wrapper inside frame */
+.phone-mockup-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #0d0d0d;
+}
+
+/* Speaker notch/island simulation */
+.phone-mockup-screen::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 20px;
+  background: #000000;
+  border-radius: 12px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Glass reflection shine on screen */
+.phone-mockup-reflection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.18) 0%, 
+    rgba(255, 255, 255, 0.03) 40%, 
+    rgba(255, 255, 255, 0) 60%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 32px;
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Hover tilt change for groups */
+.premium-border-card:hover .phone-mockup-frame {
+  transform: rotateY(-4deg) rotateX(4deg) rotateZ(0deg) scale(1.04);
+  box-shadow: 
+    0 35px 65px -10px rgba(0, 0, 0, 0.95),
+    0 0 60px rgba(124, 58, 237, 0.35),
+    inset 0 0 2px 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Background ambient glow pulse behind phone */
+.phone-glow-glowback {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle, 
+    rgba(124, 58, 237, 0.22) 0%, 
+    rgba(59, 130, 246, 0.1) 45%, 
+    transparent 70%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: -1;
+  animation: glowBackPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowBackPulse {
+  0% {
+    transform: scale(0.92) translate(-5px, -5px);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.08) translate(5px, 5px);
+    opacity: 1.25;
+  }
+}
+
+/* Animated gradient border card container */
+.premium-border-card {
+  position: relative;
+  background: rgba(10, 10, 10, 0.7) !important;
+  border-radius: 32px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Rotating/moving gradient outer glow */
+.premium-border-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #7c3aed,
+    #3b82f6,
+    #4f46e5,
+    #7c3aed
+  );
+  background-size: 400% 400%;
+  z-index: -1;
+  border-radius: 34px;
+  opacity: 0.15;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: borderRotateGlow 14s ease infinite;
+}
+
+@keyframes borderRotateGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.premium-border-card:hover::before {
+  opacity: 0.45;
+}
+
+/* Inner shadow adjustment */
+.premium-border-card:hover {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 35px 80px rgba(124, 58, 237, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Premium Download Button */
+.download-apk-btn-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+  padding: 15px 30px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  box-shadow: 
+    0 4px 15px rgba(124, 58, 237, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Subtle continuously running shimmer glaze */
+.download-apk-btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: continuousShimmer 8s infinite linear;
+}
+
+@keyframes continuousShimmer {
+  0% {
+    left: -150%;
+  }
+  20%, 100% {
+    left: 150%;
+  }
+}
+
+.download-apk-btn-premium:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 12px 24px rgba(124, 58, 237, 0.45),
+    0 0 15px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.download-apk-btn-premium:hover::before {
+  animation: continuousShimmer 2s infinite linear;
+}
+
+.pulse-button-hover:hover {
+  animation: pulseButtonScale 1.8s infinite;
+}
+
+@keyframes pulseButtonScale {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.5), 0 12px 24px rgba(124, 58, 237, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(124, 58, 237, 0), 0 12px 24px rgba(124, 58, 237, 0.45);
+  }
+}
+
+/* --- DASHBOARD WIDGET SPECIFIC STYLES --- */
+
+.dashboard-glowback-mini {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle, 
+    rgba(109, 74, 255, 0.16) 0%, 
+    rgba(79, 70, 229, 0.05) 50%, 
+    transparent 80%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: -1;
+  animation: glowBackPulseMini 6s ease-in-out infinite alternate;
+}
+
+@keyframes glowBackPulseMini {
+  0% {
+    transform: scale(0.9) translate(-1px, -1px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.1) translate(1px, 1px);
+    opacity: 1.25;
+  }
+}
+
+.download-apk-btn-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 150px;
+  padding: 6px 12px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  box-shadow: 
+    0 2px 6px rgba(124, 58, 237, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-apk-btn-mini::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: continuousShimmer 6s infinite linear;
+}
+
+.download-apk-btn-mini:hover {
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 
+    0 4px 10px rgba(124, 58, 237, 0.2),
+    0 0 6px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.15);
+}
