@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, ExternalLink, Sparkles, Heart } from 'lucide-react';
+import { Github, Linkedin, ExternalLink, Sparkles, Heart, ArrowUpRight } from 'lucide-react';
 import Signature from './Signature';
 import ashilImage from '../assets/ashil.jpeg';
 
@@ -308,10 +308,74 @@ export default function HeroBento() {
 
         {/* === ROW 3 === */}
 
-        {/* 7. Mini React Native App Showcase Widget (Col 1-12 / 12) - Centered Showcase */}
+        {/* 6. Premium Navigation Dashboard Card (Col 1-8 / 12) */}
         <BentoCard
           delay={4}
-          className="md:col-span-12 p-8 min-h-[280px] flex flex-col justify-center items-center premium-border-card"
+          className="md:col-span-8 p-0 min-h-[380px] flex flex-col justify-between"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 h-full p-8 md:p-10 items-stretch">
+            {/* Left section: Quote and Quick Navigation */}
+            <div className="lg:col-span-6 flex flex-col justify-between gap-6 text-left">
+              <div>
+                <span className="text-[10px] font-mono tracking-[0.25em] text-zinc-500 uppercase font-semibold block mb-3">
+                  ✦ Philosophy
+                </span>
+                <h2 className="text-xl md:text-2xl font-display font-medium text-white leading-snug tracking-tight">
+                  Programming is Easy, Software Development is Hard &amp; Maintaining Code is the Hardest
+                </h2>
+                <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mt-4 font-light">
+                  When you are a programmer, you need to be able to do what you can do, and when you are a software developer, you need to be able to do what you can't do.
+                </p>
+              </div>
+
+              {/* Bottom buttons */}
+              <div className="flex flex-wrap gap-3 mt-auto">
+                <button
+                  onClick={() => window.location.hash = '#/experience'}
+                  className="group flex items-center gap-1.5 px-5 py-2 rounded-full border border-white/10 hover:border-white/20 text-xs font-semibold tracking-wide text-zinc-300 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
+                >
+                  Read <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                </button>
+                <button
+                  onClick={() => window.location.hash = '#/more-projects'}
+                  className="group flex items-center gap-1.5 px-5 py-2 rounded-full border border-white/10 hover:border-white/20 text-xs font-semibold tracking-wide text-zinc-300 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
+                >
+                  All articles <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                </button>
+              </div>
+            </div>
+
+            {/* Right section: Links */}
+            <div className="lg:col-span-6 flex flex-col justify-center text-left">
+              <div className="flex flex-col justify-between h-full py-1">
+                {[
+                  { label: "Products & Platforms I Built", target: "#/work" },
+                  { label: "More Things I've Built", target: "#/more-projects" },
+                  { label: "Where I've Worked", target: "#/experience" },
+                  { label: "Let's Connect!", target: "#contact" }
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    onClick={() => window.location.hash = item.target}
+                    className="flex items-center justify-between py-4 group/item cursor-pointer border-b border-white/[0.06] last:border-b-0"
+                  >
+                    <span className="text-zinc-405 group-hover/item:text-white transition-colors duration-300 font-medium text-lg md:text-[21px] tracking-tight">
+                      {item.label}
+                    </span>
+                    <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-400 group-hover/item:bg-white group-hover/item:text-zinc-950 group-hover/item:scale-105 transition-all duration-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                      <ArrowUpRight size={16} className="group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-transform duration-300" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </BentoCard>
+
+        {/* 7. Mini React Native App Showcase Widget (Col 9-12 / 12) - Side Showcase */}
+        <BentoCard
+          delay={5}
+          className="md:col-span-4 p-6 min-h-[380px] flex flex-col justify-center items-center premium-border-card"
         >
           <div className="max-w-[420px] w-full flex flex-col justify-between h-full gap-4">
             {/* Top layout */}

@@ -8,9 +8,9 @@ import ashilImage from '../assets/ashil.jpeg';
  */
 
 const navLinks = [
-  { label: 'home', href: '#home' },
-  { label: 'work', href: '#work' },
-  { label: 'about', href: '#about' },
+  { label: 'home', href: '#/' },
+  { label: 'work', href: '#/work' },
+  { label: 'experience', href: '#/experience' },
   { label: 'contact', href: '#contact' },
 ];
 
@@ -31,11 +31,16 @@ export default function Navbar() {
       setLastScrollY(currentY);
 
       // Update active section based on scroll position
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (const section of sections.reverse()) {
-        const el = document.getElementById(section);
+      const sections = [
+        { id: 'home', link: 'home' },
+        { id: 'work', link: 'work' },
+        { id: 'experience', link: 'experience' },
+        { id: 'contact', link: 'contact' }
+      ];
+      for (const section of [...sections].reverse()) {
+        const el = document.getElementById(section.id);
         if (el && el.getBoundingClientRect().top <= 200) {
-          setActiveSection(section);
+          setActiveSection(section.link);
           break;
         }
       }
@@ -47,10 +52,7 @@ export default function Navbar() {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.location.hash = href;
   };
 
   return (
@@ -87,12 +89,12 @@ export default function Navbar() {
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={`relative px-4 py-1.5 text-xs font-semibold tracking-wide capitalize transition-colors duration-300 rounded-full ${
-                  activeSection === link.href.slice(1)
+                  activeSection === link.label
                     ? 'text-white'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                {activeSection === link.href.slice(1) && (
+                {activeSection === link.label && (
                   <motion.div
                     layoutId="navActive"
                     className="absolute inset-0 rounded-full bg-white/[0.07] border border-violet-500/20 shadow-[0_0_12px_rgba(124,58,237,0.15)]"

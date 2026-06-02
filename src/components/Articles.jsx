@@ -49,35 +49,8 @@ const aboutInfo = [
 
 export default function Articles() {
   return (
-    <section id="about" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40">
+    <section id="experience" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40 scroll-mt-24">
       
-      {/* === ABOUT ME === */}
-      <motion.div
-        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14"
-      >
-        <span className="section-label">✨ About Me</span>
-        <h2 className="text-5xl md:text-6xl font-display font-medium text-white mt-4 tracking-tight">
-          My Story & Focus
-        </h2>
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-36">
-        
-        {/* About Bio Card */}
-        <AboutBioCard />
-
-        {/* Quick Info Cards */}
-        <div className="md:col-span-5 flex flex-col gap-4">
-          {aboutInfo.map((info, index) => (
-            <AboutInfoCard key={info.label} info={info} index={index} />
-          ))}
-        </div>
-      </div>
-
       {/* === EXPERIENCE TIMELINE === */}
       <motion.div
         initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}

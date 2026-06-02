@@ -130,7 +130,7 @@ const allProjects = [
 
 export default function SelectedWorks() {
   return (
-    <section id="work" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40">
+    <section id="work" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40 scroll-mt-24">
       
       {/* === FEATURED WORK (Live Products) === */}
       <motion.div
@@ -158,11 +158,12 @@ export default function SelectedWorks() {
 
       {/* === ALL PROJECTS GRID === */}
       <motion.div
+        id="more-projects"
         initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12"
+        className="mb-12 scroll-mt-24"
       >
         <span className="section-label">💻 All Projects</span>
         <h2 className="text-4xl md:text-5xl font-display font-medium text-white mt-4 tracking-tight">
