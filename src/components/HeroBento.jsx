@@ -337,10 +337,10 @@ export default function HeroBento() {
                   Read <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                 </button>
                 <button
-                  onClick={() => window.location.hash = '#/more-projects'}
+                  onClick={() => window.location.hash = '#/live-projects'}
                   className="group flex items-center gap-1.5 px-5 py-2 rounded-full border border-white/10 hover:border-white/20 text-xs font-semibold tracking-wide text-zinc-300 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
                 >
-                  All articles <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  Live projects <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                 </button>
               </div>
             </div>
@@ -350,7 +350,7 @@ export default function HeroBento() {
               <div className="flex flex-col justify-between h-full py-1">
                 {[
                   { label: "Products & Platforms I Built", target: "#/work" },
-                  { label: "More Things I've Built", target: "#/more-projects" },
+                  { label: "Live projects", target: "#/live-projects" },
                   { label: "Where I've Worked", target: "#/experience" },
                   { label: "Let's Connect!", target: "#contact" }
                 ].map((item) => (

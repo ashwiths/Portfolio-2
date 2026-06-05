@@ -1,138 +1,213 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ExternalLink, Github, Star } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 
 /**
- * Selected Works & All Projects section in premium dark mode
- * Restored with product-specific static hover color glows and border lighting (zero mousemove lag).
+ * Selected Works - list of all user projects in premium dark mode horizontal card format.
+ * Restored with dynamic product-specific hover color glows and border lighting based on theme colors.
  */
 
-// Featured live products (top section)
-const featuredProducts = [
-  {
-    id: 1,
-    name: "BlueLab Technologies",
-    url: "bluelabtech.space",
-    siteUrl: "https://bluelabtech.space",
-    description: "A modern technology agency website presenting digital services such as web development, UI/UX design, and SEO solutions. Highlights the company's mission, services, and internship opportunities with a clean professional interface.",
-    features: ["Modern landing page design", "Service showcase", "Internship information", "Clean responsive layout"],
-    tags: ["React", "Tailwind CSS", "Responsive UI"],
-    gradient: "from-blue-500/10 via-transparent to-transparent",
-    glowColor: "rgba(59, 130, 246, 0.12)",
-    borderColor: "#3b82f6",
-  },
-  {
-    id: 2,
-    name: "ProjectHub",
-    url: "projecthub.bluelabtech.space",
-    siteUrl: "https://projecthub.bluelabtech.space",
-    description: "A platform that helps students and developers discover and explore software projects. Acts as a project learning hub where users can browse different ideas and resources for building technical projects.",
-    features: ["Project listing system", "Organized categories", "Developer-friendly interface", "Learning-oriented platform"],
-    tags: ["React", "Tailwind CSS"],
-    gradient: "from-violet-500/10 via-transparent to-transparent",
-    glowColor: "rgba(124, 58, 237, 0.12)",
-    borderColor: "#7c3aed",
-  },
-  {
-    id: 3,
-    name: "DevKit",
-    url: "dev.bluelabtech.space",
-    siteUrl: "https://dev.bluelabtech.space",
-    description: "A full-featured developer toolkit platform offering a suite of productivity tools — PDF utilities, code tools, and developer-focused converters — wrapped in a sleek, modern dashboard interface.",
-    features: ["PDF suite tools", "Developer utilities", "Modern dashboard UI", "Full-stack architecture"],
-    tags: ["React", "Node.js", "Express", "Tailwind CSS"],
-    gradient: "from-emerald-500/10 via-transparent to-transparent",
-    glowColor: "rgba(16, 185, 129, 0.12)",
-    borderColor: "#10b981",
-  },
-];
-
-// All projects grid (bottom section)
-const allProjects = [
-  {
-    name: "DevKit",
-    description: "A comprehensive developer toolkit platform featuring a suite of productivity tools — including a PDF suite, code utilities, and developer-focused utilities — all wrapped in a sleek, modern dashboard interface.",
-    tags: ["React", "Node.js", "Express", "JavaScript", "Tailwind CSS"],
-    featured: false,
-    color: "#10b981",
-  },
+const featuredProjects = [
   {
     name: "SheetHub",
+    url: "sheethub.bluelabtech.space",
+    demoUrl: "https://sheethub.bluelabtech.space/",
+    githubUrl: "https://github.com/ashwiths/sheethub",
     description: "A smart spreadsheet collaboration hub that lets users create, manage, and share spreadsheets online. Built with a focus on real-time usability, clean UX, and powerful data handling.",
-    tags: ["React", "JavaScript", "Node.js", "CSS"],
-    featured: true,
-    color: "#8b5cf6",
-  },
-  {
-    name: "Portfolio",
-    description: "A modern personal portfolio website built with React and JavaScript, showcasing projects, skills, and professional experience with smooth animations.",
-    tags: ["React", "JavaScript", "Tailwind CSS", "Vite"],
-    featured: false,
-    color: "#f59e0b",
-  },
-  {
-    name: "Projecthub",
-    description: "A platform for students and developers to discover and explore software project ideas, organized by category with a developer-friendly interface.",
-    tags: ["JavaScript", "React", "Node.js"],
-    featured: false,
+    features: ["Online spreadsheets", "Real-time collaboration", "Clean workspace UI", "Advanced data management"],
+    tags: ["React", "TypeScript", "Node.js", "Tailwind CSS"],
     color: "#3b82f6",
   },
   {
-    name: "Terminalhub",
-    description: "An interactive terminal-style hub built with JavaScript, featuring Git and terminal commands organized into categories with copy-to-clipboard functionality.",
+    name: "ProjectHub",
+    url: "projecthub.bluelabtech.space",
+    demoUrl: "https://projecthub.bluelabtech.space/",
+    githubUrl: "https://github.com/ashwiths/Projecthub",
+    description: "A platform that helps students and developers discover and explore software projects. Acts as a project learning hub where users can browse different ideas and resources for building technical projects.",
+    features: ["Project discovery", "Category filters", "Developer resources", "Clean responsive layout"],
+    tags: ["React", "JavaScript", "Tailwind CSS"],
+    color: "#7c3aed",
+  },
+  {
+    name: "DevKit",
+    url: "dev.bluelabtech.space",
+    demoUrl: "https://dev.bluelabtech.space/",
+    githubUrl: "https://github.com/ashwiths/Devkit",
+    description: "A full-featured developer toolkit platform offering a suite of productivity tools — PDF utilities, code tools, and developer-focused converters — wrapped in a sleek, modern dashboard interface.",
+    features: ["PDF tools & converters", "Developer helper utilities", "Sleek dashboard design", "Performance optimized"],
+    tags: ["React", "JavaScript", "Tailwind CSS", "Node.js"],
+    color: "#10b981",
+  },
+];
+
+const liveProjects = [
+  {
+    name: "Streamdrop",
+    url: "drop.savee.space",
+    demoUrl: "https://drop.savee.space/",
+    githubUrl: "https://github.com/ashwiths/Streamdrop",
+    description: "A streamlined peer-to-peer file transfer platform built with JavaScript and WebRTC, enabling direct, secure, and fast sharing of large files in the browser.",
+    features: ["Direct P2P file sharing", "WebRTC secure transfers", "Fast browser processing", "Minimal clean interface"],
+    tags: ["JavaScript", "React", "WebRTC", "CSS"],
+    color: "#a855f7",
+  },
+  {
+    name: "Typekey",
+    url: "type.savee.space",
+    demoUrl: "https://type.savee.space/",
+    githubUrl: "https://github.com/ashwiths/Typekey",
+    description: "A premium typographic typing test platform designed to measure speed, accuracy, and keystroke metrics with real-time feedback and aesthetic layouts.",
+    features: ["Keystroke metric analysis", "Speed & accuracy tests", "Premium typing feedback", "Modern UI layout"],
+    tags: ["JavaScript", "React", "Tailwind CSS"],
+    color: "#14b8a6",
+  },
+  {
+    name: "Bible Reader",
+    url: "bible.savee.space",
+    demoUrl: "https://bible.savee.space/",
+    githubUrl: "https://github.com/ashwiths/Bible",
+    description: "A sacred text reading and exploration application designed for seamless focus, offering bookmarking, customizable display preferences, and dynamic navigation.",
+    features: ["Focus reading layouts", "Bookmarking features", "Custom theme modes", "Fluid chapter navigation"],
     tags: ["JavaScript", "React", "CSS"],
-    featured: false,
-    color: "#ec4899",
+    color: "#f97316",
+  },
+  {
+    name: "CRM System",
+    url: "crm-green-phi.vercel.app",
+    demoUrl: "https://crm-green-phi.vercel.app",
+    githubUrl: "https://github.com/ashwiths/CRM",
+    description: "A premium customer relationship management dashboard to organize leads, monitor customer communications, track support tickets, and analyze performance analytics.",
+    features: ["Lead pipeline tracking", "Customer communications", "Support ticket flow", "Admin metrics charts"],
+    tags: ["React", "JavaScript", "Tailwind CSS", "Node.js"],
+    color: "#ef4444",
+  },
+  {
+    name: "Upload Malware Scanner",
+    url: "safe.savee.space",
+    demoUrl: "https://safe.savee.space/",
+    githubUrl: "https://github.com/ashwiths/Upload-Malware-Scanner",
+    description: "A high-performance file upload security portal that checks uploads against known malware signatures and verifies file integrity using automated cryptographic hash checks.",
+    features: ["Malware signature checks", "Cryptographic hash check", "File upload security", "Vercel serverless integration"],
+    tags: ["JavaScript", "React", "Security", "Vercel"],
+    color: "#06b6d4",
+  },
+  {
+    name: "FontPair",
+    url: "font.savee.space",
+    demoUrl: "https://font.savee.space/",
+    githubUrl: "https://github.com/ashwiths/fontpair",
+    description: "An interactive playground for typography lovers that allows developers to preview, test, and match Google Fonts side-by-side to find the perfect pairing.",
+    features: ["Google Fonts integration", "Interactive preview workspace", "Typography pairing suggestions", "Responsive controls"],
+    tags: ["JavaScript", "React", "Google Fonts API"],
+    color: "#22c55e",
+  },
+  {
+    name: "LinkDownload",
+    url: "linkdownload-orpin.vercel.app",
+    demoUrl: "https://linkdownload-orpin.vercel.app",
+    githubUrl: "https://github.com/ashwiths/linkdownload",
+    description: "A simple yet powerful tool to fetch resources, parse links, and download multiple assets in parallel, optimizing file retrieval for web developers.",
+    features: ["Link parsing engine", "Parallel asset downloads", "Resource downloader helper"],
+    tags: ["JavaScript", "React", "Parallel Fetching"],
+    color: "#e11d48",
+  },
+  {
+    name: "Goodthing",
+    url: "goodthing.vercel.app",
+    demoUrl: "https://goodthing.vercel.app",
+    githubUrl: "https://github.com/ashwiths/Goodthing",
+    description: "A positive habit tracker and reflection journal that encourages daily journaling, gratitude logs, and micro-achievement tracking in a clean, minimal interface.",
+    features: ["Habit streak tracker", "Daily gratitude reflection", "Local storage data sync"],
+    tags: ["TypeScript", "React", "Local Storage"],
+    color: "#ca8a04",
+  },
+  {
+    name: "Portfolio-2",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/Portfolio-2",
+    description: "A premium, personal portfolio website built with React and JavaScript, showcasing software projects, dynamic maps, and career timelines with smooth animations.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "Vite", "Framer Motion"],
+    color: "#f59e0b",
   },
   {
     name: "Student Portal",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/Student-portal-",
     description: "A web-based student portal system designed to streamline academic workflows, manage student data, and provide a centralized dashboard for educational resources.",
     tags: ["HTML", "CSS", "JavaScript"],
-    featured: false,
     color: "#14b8a6",
   },
   {
     name: "Student Feedback Automation",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/student-feedback-automation",
     description: "An automation tool that streamlines the collection, management, and analysis of student feedback for academic institutions, reducing manual processing effort.",
     tags: ["Automation", "JavaScript", "Node.js"],
-    featured: false,
     color: "#f97316",
   },
   {
     name: "GenAI Malware Detection",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/GenAI-Malware-Detection",
     description: "A cutting-edge malware detection system leveraging Generative AI and machine learning to identify and classify malicious software patterns in real time.",
     tags: ["Python", "GenAI", "Machine Learning", "Security"],
-    featured: false,
     color: "#ef4444",
   },
   {
     name: "Trip Planning App",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/Trip-planing",
     description: "A smart trip planning web application that helps users organize travel itineraries, discover destinations, and manage trip details with an intuitive interface.",
     tags: ["JavaScript", "React", "API Integration"],
-    featured: false,
     color: "#06b6d4",
   },
   {
     name: "Admit Dashboard",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/admit-dashboard",
     description: "An admin dashboard for managing admissions, built with JavaScript. Provides an overview of applicants, status tracking, and data visualization for administrators.",
     tags: ["JavaScript", "React", "Dashboard", "MongoDB"],
-    featured: false,
     color: "#a855f7",
   },
   {
     name: "Passion Student AI Tutor",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/Passion_student_AI_Tutor",
     description: "An AI-powered tutoring platform built with JavaScript that provides personalized academic assistance, adaptive learning paths, and interactive Q&A features.",
     tags: ["JavaScript", "AI", "React", "Node.js"],
-    featured: false,
     color: "#22c55e",
   },
+  {
+    name: "Marker Detection App",
+    url: null,
+    demoUrl: null,
+    githubUrl: "https://github.com/ashwiths/marker-detection-app",
+    description: "React Native app for custom marker detection using camera and region-based processing, optimizing marker detection flows on mobile platforms.",
+    tags: ["TypeScript", "React Native", "Camera API", "Mobile"],
+    color: "#db2777",
+  }
 ];
 
-export default function SelectedWorks() {
+export default function SelectedWorks({ view }) {
+  const isLiveView = view === 'live';
+  const projectsList = isLiveView ? liveProjects : featuredProjects;
+  const sectionLabel = isLiveView ? "💻 Portfolio" : "🚀 Featured Work";
+  const titleText = isLiveView ? "Live projects" : "Products & Platforms I Built";
+  const subtitleText = isLiveView
+    ? "A curated collection of production applications and developer tools live on the web."
+    : "Real-world products live on the web — engineered with performance and precision.";
+
   return (
     <section id="work" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40 scroll-mt-24">
-      
-      {/* === FEATURED WORK (Live Products) === */}
+
+      {/* === SECTION HEADING === */}
       <motion.div
         initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -140,39 +215,18 @@ export default function SelectedWorks() {
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
         className="mb-14 relative"
       >
-        <span className="section-label">🚀 Featured Work</span>
+        <span className="section-label">{sectionLabel}</span>
         <h2 className="text-5xl md:text-6xl font-display font-medium text-white mt-4 tracking-tight">
-          Products & Platforms I Built
+          {titleText}
         </h2>
         <p className="text-zinc-400 text-base md:text-lg mt-3 max-w-xl font-light">
-          Real-world products live on the web — engineered with performance and precision.
+          {subtitleText}
         </p>
       </motion.div>
 
-      {/* Featured Product Cards */}
-      <div className="flex flex-col gap-8 mb-36">
-        {featuredProducts.map((product, index) => (
-          <FeaturedCard key={product.id} product={product} index={index} />
-        ))}
-      </div>
-
-      {/* === ALL PROJECTS GRID === */}
-      <motion.div
-        id="more-projects"
-        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 scroll-mt-24"
-      >
-        <span className="section-label">💻 All Projects</span>
-        <h2 className="text-4xl md:text-5xl font-display font-medium text-white mt-4 tracking-tight">
-          More Things I've Built
-        </h2>
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {allProjects.map((project, index) => (
+      {/* Project Cards */}
+      <div className="flex flex-col gap-8">
+        {projectsList.map((project, index) => (
           <ProjectCard key={project.name} project={project} index={index} />
         ))}
       </div>
@@ -180,16 +234,21 @@ export default function SelectedWorks() {
   );
 }
 
-/* Featured Product Card - large horizontal card with static product glow */
-function FeaturedCard({ product, index }) {
+/* Horizontal card with dynamic accent color glow and border lighting */
+function ProjectCard({ project, index }) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const borderColor = project.color || '#7c3aed';
+  const glowColor = `${borderColor}1f`; // ~12% opacity in hex
+  const borderHoverColor = `${borderColor}35`; // ~20% opacity in hex
+  const gradient = `linear-gradient(to right, ${borderColor}0d, transparent)`; // ~5% opacity in hex
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1.1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.1, delay: Math.min(index * 0.08, 0.6), ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4, scale: 1.004 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -200,7 +259,7 @@ function FeaturedCard({ product, index }) {
         className="absolute inset-0 rounded-[32px] pointer-events-none transition-opacity duration-600 z-0"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(350px circle at center, ${product.glowColor}, transparent 70%)`,
+          background: `radial-gradient(350px circle at center, ${glowColor}, transparent 70%)`,
         }}
       />
 
@@ -209,70 +268,82 @@ function FeaturedCard({ product, index }) {
         className="absolute inset-0 rounded-[32px] pointer-events-none transition-opacity duration-500 z-20 border"
         style={{
           opacity: isHovered ? 1 : 0,
-          borderColor: product.borderColor + '35',
-          boxShadow: `inset 0 0 16px ${product.glowColor}`,
+          borderColor: borderHoverColor,
+          boxShadow: `inset 0 0 16px ${glowColor}`,
         }}
       />
 
       {/* Subtle overlay gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${product.gradient} rounded-[32px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none`} />
+      <div
+        className="absolute inset-0 rounded-[32px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
+        style={{ backgroundImage: gradient }}
+      />
 
       <div className="relative z-10">
-        {/* Top row: Live Project badge + URL + arrow */}
+        {/* Top row: Live Project badge / Repo badge + URL + arrow */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest border"
-              style={{ backgroundColor: product.borderColor + '15', color: product.borderColor, borderColor: product.borderColor + '30' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-              Live Product
-            </span>
-            <span className="text-xs text-zinc-500 font-mono">🌐 {product.url}</span>
+            {project.demoUrl ? (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest border"
+                style={{ backgroundColor: borderColor + '15', color: borderColor, borderColor: borderColor + '30' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                Live Product
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest border border-zinc-700 bg-zinc-800/40 text-zinc-405">
+                Code Repository
+              </span>
+            )}
+            {project.url && <span className="text-xs text-zinc-500 font-mono">🌐 {project.url}</span>}
           </div>
-          <a
-            href={product.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-zinc-400 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
-            style={{ '--hover-color': product.borderColor }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = product.borderColor;
-              e.currentTarget.style.color = '#ffffff';
-              e.currentTarget.style.backgroundColor = product.borderColor + '30';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.color = '#a1a1aa';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-            }}
-          >
-            <ArrowUpRight size={16} />
-          </a>
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-zinc-400 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = borderColor;
+                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.backgroundColor = borderColor + '30';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.color = '#a1a1aa';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+              }}
+            >
+              <ArrowUpRight size={16} />
+            </a>
+          )}
         </div>
 
         {/* Title */}
         <h3 className="text-3xl md:text-4xl font-display font-medium text-white tracking-tight group-hover:text-white transition-colors">
-          {product.name}
+          {project.name}
         </h3>
 
         {/* Description */}
-        <p className="text-base md:text-lg text-zinc-450 mt-4 leading-relaxed max-w-3xl font-light">
-          {product.description}
+        <p className="text-base md:text-lg text-zinc-400 mt-4 leading-relaxed max-w-3xl font-light">
+          {project.description}
         </p>
 
         {/* Feature bullets */}
-        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-          {product.features.map((feature) => (
-            <li key={feature} className="text-[13px] text-zinc-450 flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full" style={{ backgroundColor: product.borderColor }} />
-              {feature}
-            </li>
-          ))}
-        </ul>
+        {project.features && project.features.length > 0 && (
+          <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+            {project.features.map((feature) => (
+              <li key={feature} className="text-[13px] text-zinc-400 flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full" style={{ backgroundColor: borderColor }} />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )}
 
-        {/* Tags + Visit Website */}
+        {/* Tags + Links */}
         <div className="flex items-center justify-between mt-8 flex-wrap gap-4 pt-6 border-t border-white/5">
           <div className="flex flex-wrap gap-2">
-            {product.tags.map((tag) => (
+            {project.tags.map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-zinc-350 font-medium"
@@ -281,88 +352,28 @@ function FeaturedCard({ product, index }) {
               </span>
             ))}
           </div>
-          <a
-            href={product.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-btn text-xs font-semibold"
-          >
-            <ExternalLink size={13} /> Visit Website
-          </a>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* Small Project Card for the grid with static accent color glow */
-function ProjectCard({ project, index }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.9, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -4, scale: 1.006 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="bento-card p-8 md:p-10 group relative overflow-hidden flex flex-col justify-between"
-    >
-      {/* Top colored accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] opacity-60 group-hover:opacity-100 transition-opacity" style={{ backgroundColor: project.color }} />
-      
-      {/* Static product-specific border glow on hover */}
-      <div
-        className="absolute inset-0 rounded-[32px] pointer-events-none transition-opacity duration-500 z-20 border"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          borderColor: project.color + '25',
-          boxShadow: `inset 0 0 12px ${project.color}12`,
-        }}
-      />
-
-      {/* Featured badge */}
-      {project.featured && (
-        <div className="absolute top-5 right-5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[9px] font-bold uppercase tracking-wider">
-          <Star size={9} className="fill-current" /> Featured
-        </div>
-      )}
-
-      <div>
-        {/* Project name */}
-        <h4 className="text-xl font-semibold text-white tracking-wide mt-2 group-hover:text-white transition-colors">
-          {project.name}
-        </h4>
-
-        {/* Description */}
-        <p className="text-sm text-zinc-450 mt-2.5 leading-relaxed line-clamp-4 font-light">
-          {project.description}
-        </p>
-      </div>
-
-      <div>
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-5">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 rounded-lg text-[11px] text-zinc-350 border border-white/5 bg-white/[0.02]"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className="flex items-center gap-4 mt-5 pt-4 border-t border-white/5">
-          <a href="https://github.com/ashwiths" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-zinc-450 hover:text-white transition-colors">
-            <Github size={13} /> Code
-          </a>
-          <a href="#" className="flex items-center gap-1.5 text-xs text-zinc-450 hover:text-white transition-colors">
-            <ExternalLink size={13} /> Demo
-          </a>
+          <div className="flex items-center gap-4">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-zinc-405 hover:text-white transition-colors"
+              >
+                <Github size={13} /> Code
+              </a>
+            )}
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-btn text-xs font-semibold"
+              >
+                <ExternalLink size={13} /> Visit Website
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

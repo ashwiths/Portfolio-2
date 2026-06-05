@@ -27,7 +27,7 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const isWorkView = currentHash.startsWith('#/work') || currentHash.startsWith('#/more-projects');
+  const isWorkView = currentHash.startsWith('#/work') || currentHash.startsWith('#/live-projects');
   const isExperienceView = currentHash.startsWith('#/experience');
   const isSubpage = isWorkView || isExperienceView;
 
@@ -59,15 +59,7 @@ export default function App() {
   useEffect(() => {
     if (isLoading) return;
 
-    if (currentHash === '#/more-projects') {
-      const timer = setTimeout(() => {
-        const el = document.getElementById('more-projects');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-      return () => clearTimeout(timer);
-    } else if (currentHash === '#contact') {
+    if (currentHash === '#contact') {
       const timer = setTimeout(() => {
         const el = document.getElementById('contact');
         if (el) {
@@ -113,7 +105,7 @@ export default function App() {
               </div>
             )}
 
-            {isWorkView && <SelectedWorks />}
+            {isWorkView && <SelectedWorks view={currentHash === '#/live-projects' ? 'live' : 'featured'} />}
             {isExperienceView && <Articles />}
             {!isSubpage && (
               <>
