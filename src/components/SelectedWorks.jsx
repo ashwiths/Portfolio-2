@@ -100,98 +100,6 @@ const liveProjects = [
     features: ["Google Fonts integration", "Interactive preview workspace", "Typography pairing suggestions", "Responsive controls"],
     tags: ["JavaScript", "React", "Google Fonts API"],
     color: "#22c55e",
-  },
-  {
-    name: "LinkDownload",
-    url: "linkdownload-orpin.vercel.app",
-    demoUrl: "https://linkdownload-orpin.vercel.app",
-    githubUrl: "https://github.com/ashwiths/linkdownload",
-    description: "A simple yet powerful tool to fetch resources, parse links, and download multiple assets in parallel, optimizing file retrieval for web developers.",
-    features: ["Link parsing engine", "Parallel asset downloads", "Resource downloader helper"],
-    tags: ["JavaScript", "React", "Parallel Fetching"],
-    color: "#e11d48",
-  },
-  {
-    name: "Goodthing",
-    url: "goodthing.vercel.app",
-    demoUrl: "https://goodthing.vercel.app",
-    githubUrl: "https://github.com/ashwiths/Goodthing",
-    description: "A positive habit tracker and reflection journal that encourages daily journaling, gratitude logs, and micro-achievement tracking in a clean, minimal interface.",
-    features: ["Habit streak tracker", "Daily gratitude reflection", "Local storage data sync"],
-    tags: ["TypeScript", "React", "Local Storage"],
-    color: "#ca8a04",
-  },
-  {
-    name: "Portfolio-2",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/Portfolio-2",
-    description: "A premium, personal portfolio website built with React and JavaScript, showcasing software projects, dynamic maps, and career timelines with smooth animations.",
-    tags: ["React", "JavaScript", "Tailwind CSS", "Vite", "Framer Motion"],
-    color: "#f59e0b",
-  },
-  {
-    name: "Student Portal",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/Student-portal-",
-    description: "A web-based student portal system designed to streamline academic workflows, manage student data, and provide a centralized dashboard for educational resources.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    color: "#14b8a6",
-  },
-  {
-    name: "Student Feedback Automation",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/student-feedback-automation",
-    description: "An automation tool that streamlines the collection, management, and analysis of student feedback for academic institutions, reducing manual processing effort.",
-    tags: ["Automation", "JavaScript", "Node.js"],
-    color: "#f97316",
-  },
-  {
-    name: "GenAI Malware Detection",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/GenAI-Malware-Detection",
-    description: "A cutting-edge malware detection system leveraging Generative AI and machine learning to identify and classify malicious software patterns in real time.",
-    tags: ["Python", "GenAI", "Machine Learning", "Security"],
-    color: "#ef4444",
-  },
-  {
-    name: "Trip Planning App",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/Trip-planing",
-    description: "A smart trip planning web application that helps users organize travel itineraries, discover destinations, and manage trip details with an intuitive interface.",
-    tags: ["JavaScript", "React", "API Integration"],
-    color: "#06b6d4",
-  },
-  {
-    name: "Admit Dashboard",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/admit-dashboard",
-    description: "An admin dashboard for managing admissions, built with JavaScript. Provides an overview of applicants, status tracking, and data visualization for administrators.",
-    tags: ["JavaScript", "React", "Dashboard", "MongoDB"],
-    color: "#a855f7",
-  },
-  {
-    name: "Passion Student AI Tutor",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/Passion_student_AI_Tutor",
-    description: "An AI-powered tutoring platform built with JavaScript that provides personalized academic assistance, adaptive learning paths, and interactive Q&A features.",
-    tags: ["JavaScript", "AI", "React", "Node.js"],
-    color: "#22c55e",
-  },
-  {
-    name: "Marker Detection App",
-    url: null,
-    demoUrl: null,
-    githubUrl: "https://github.com/ashwiths/marker-detection-app",
-    description: "React Native app for custom marker detection using camera and region-based processing, optimizing marker detection flows on mobile platforms.",
-    tags: ["TypeScript", "React Native", "Camera API", "Mobile"],
-    color: "#db2777",
   }
 ];
 
@@ -205,7 +113,7 @@ export default function SelectedWorks({ view }) {
     : "Real-world products live on the web — engineered with performance and precision.";
 
   return (
-    <section id="work" className="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40 scroll-mt-24">
+    <section id="work" className="max-w-[1400px] mx-auto px-6 md:px-10 pt-8 pb-32 md:pt-10 md:pb-40 scroll-mt-24">
 
       {/* === SECTION HEADING === */}
       <motion.div

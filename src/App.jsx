@@ -98,7 +98,7 @@ export default function App() {
                 </span>
                 <button
                   onClick={() => window.location.hash = '#/'}
-                  className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 hover:border-white/20 text-xs font-semibold tracking-wide text-zinc-300 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/10 hover:border-white/20 text-sm font-semibold tracking-wide text-zinc-350 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
                 >
                   ← Back to Home
                 </button>
