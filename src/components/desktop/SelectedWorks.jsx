@@ -15,18 +15,18 @@ import {
   Activity
 } from 'lucide-react';
 
-import sheethubPreview from '../assets/sheethub_preview.png';
-import projecthubPreview from '../assets/projecthub_preview.png';
-import devkitPreview from '../assets/devkit_preview.png';
-import streamdropPreview from '../assets/streamdrop_preview.png';
-import typekeyPreview from '../assets/typekey_preview.png';
-import bibleReaderPreview from '../assets/bible_reader_preview.png';
-import crmSystemPreview from '../assets/crm_system_preview.png';
-import uploadMalwareScannerPreview from '../assets/upload_malware_scanner_preview.png';
-import fontpairPreview from '../assets/fontpair_preview.png';
-import healPreview from '../assets/heal_preview.png';
-import bluelabPreview from '../assets/bluelab_preview.png';
-import networkCheckPreview from '../assets/network_check_preview.png';
+import sheethubPreview from '../../assets/sheethub_preview.png';
+import projecthubPreview from '../../assets/projecthub_preview.png';
+import devkitPreview from '../../assets/devkit_preview.png';
+import streamdropPreview from '../../assets/streamdrop_preview.png';
+import typekeyPreview from '../../assets/typekey_preview.png';
+import bibleReaderPreview from '../../assets/bible_reader_preview.png';
+import crmSystemPreview from '../../assets/crm_system_preview.png';
+import uploadMalwareScannerPreview from '../../assets/upload_malware_scanner_preview.png';
+import fontpairPreview from '../../assets/fontpair_preview.png';
+import healPreview from '../../assets/heal_preview.png';
+import bluelabPreview from '../../assets/bluelab_preview.png';
+import networkCheckPreview from '../../assets/network_check_preview.png';
 
 /**
  * Selected Works - list of all user projects in premium dark mode grid card format.

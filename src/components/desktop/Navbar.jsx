@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ashilImage from '../assets/ashil.jpeg';
+import ashilImage from '../../assets/ashil.jpeg';
 
 /**
  * Floating pill navigation bar — reubence.com exact style

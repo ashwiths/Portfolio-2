@@ -1,22 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader';
-import HeroBento from './components/HeroBento';
-import EcosystemShowcase from './components/EcosystemShowcase';
-import PlacesMap from './components/PlacesMap';
-import SelectedWorks from './components/SelectedWorks';
-import Articles from './components/Articles';
-import Footer from './components/Footer';
 import CinematicBackground from './components/CinematicBackground';
+import useDeviceType from './hooks/useDeviceType';
+import DesktopLayout from './layouts/DesktopLayout';
+import MobileLayout from './layouts/MobileLayout';
 import Lenis from 'lenis';
+import ResumeModal from './components/ResumeModal';
 
 /**
  * Main App shell - reubence.com style portfolio
- * Multi-page layout split between Home, Work, and Experience views using lightweight hash routing.
+ * Automatic screen size detection:
+ * - Mobile (< 768px): Dedicated touch-optimized layout & components
+ * - Tablet & Desktop (>= 768px): Existing responsive grid layout
  */
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentHash, setCurrentHash] = useState(window.location.hash || '#/');
+  const lenisRef = useRef(null);
+  const deviceType = useDeviceType();
 
   // Listen to hash changes for routing
   useEffect(() => {
@@ -27,20 +29,19 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const isWorkView = currentHash.startsWith('#/work') || currentHash.startsWith('#/live-projects');
-  const isExperienceView = currentHash.startsWith('#/experience');
-  const isSubpage = isWorkView || isExperienceView;
-
   // Initialize Lenis smooth scroll
   useEffect(() => {
     if (isLoading) return;
 
+    // Optional: Only enable Lenis smooth-scroll on non-mobile screens for better native scroll on touch devices
+    const isMobile = deviceType === 'mobile';
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth exponential out
-      smoothWheel: true,
+      smoothWheel: !isMobile,
       wheelMultiplier: 0.9,
     });
+    lenisRef.current = lenis;
 
     let rafId;
     function raf(time) {
@@ -51,26 +52,35 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
       cancelAnimationFrame(rafId);
     };
-  }, [isLoading]);
+  }, [isLoading, deviceType]);
 
   // Handle smooth scroll when routing hash changes
   useEffect(() => {
     if (isLoading) return;
 
-    if (currentHash === '#contact') {
+    if (currentHash === '#/contact' || currentHash === '#contact') {
       const timer = setTimeout(() => {
-        const el = document.getElementById('contact');
+        const el = document.getElementById('contact') || document.getElementById('contact-page');
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(el, { duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
         }
       }, 100);
       return () => clearTimeout(timer);
     } else {
       // For general page transitions, scroll back to top
       const timer = setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { duration: 0.8, immediate: false });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }, 100);
       return () => clearTimeout(timer);
     }
@@ -84,38 +94,19 @@ export default function App() {
       </AnimatePresence>
 
       {!isLoading && (
-        <div className="min-h-screen text-zinc-100 relative selection:bg-violet-500/30 selection:text-white">
+        <div className="min-h-screen text-zinc-100 relative selection:bg-violet-500/30 selection:text-white overflow-x-hidden">
           
           {/* Cinematic Background Canvas and overlays */}
           <CinematicBackground />
           
-          <main className="relative z-10">
-            {/* Header for Subpages */}
-            {isSubpage && (
-              <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-8 pb-4 flex justify-between items-center">
-                <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
-                  Infant Ashil A
-                </span>
-                <button
-                  onClick={() => window.location.hash = '#/'}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/10 hover:border-white/20 text-sm font-semibold tracking-wide text-zinc-350 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer"
-                >
-                  ← Back to Home
-                </button>
-              </div>
-            )}
+          {deviceType === 'mobile' ? (
+            <MobileLayout currentHash={currentHash} />
+          ) : (
+            <DesktopLayout currentHash={currentHash} />
+          )}
 
-            {isWorkView && <SelectedWorks view={currentHash === '#/live-projects' ? 'live' : 'featured'} />}
-            {isExperienceView && <Articles />}
-            {!isSubpage && (
-              <>
-                <HeroBento />
-                <EcosystemShowcase />
-                <PlacesMap />
-              </>
-            )}
-          </main>
-          {isSubpage && <Footer />}
+          <ResumeModal />
+
         </div>
       )}
     </>

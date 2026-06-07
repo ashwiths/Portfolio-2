@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, ExternalLink, Sparkles, Heart, ArrowUpRight } from 'lucide-react';
 import Signature from './Signature';
-import ashilImage from '../assets/ashil.jpeg';
+import ashilImage from '../../assets/ashil.jpeg';
 
 // Premium Android SVG Icon component
 function AndroidIcon(props) {
