@@ -206,13 +206,12 @@ function LogoItem({ item, index }) {
         zIndex: hovered ? 50 : (size === 'large' ? 10 : 5),
       }}
     >
-      <motion.div
-        animate={{ y: driftY }}
-        transition={{
-          duration: driftDuration,
-          delay: driftDelay,
-          repeat: Infinity,
-          ease: 'easeInOut',
+      <div
+        className="logo-drift"
+        style={{
+          '--drift-duration': `${driftDuration}s`,
+          '--drift-delay': `-${driftDelay}s`,
+          '--drift-amount': '-6px',
         }}
       >
         <motion.a
@@ -320,14 +319,14 @@ function LogoItem({ item, index }) {
           </AnimatePresence>
 
         </motion.a>
-      </motion.div>
+      </div>
     </div>
   );
 }
 
 export default function MobileEcosystem() {
   return (
-    <section className="relative overflow-hidden w-full py-10 bg-[#050505]">
+    <section className="relative overflow-hidden w-full py-10 bg-[#050505] content-visibility-auto">
       
       {/* Grid Dots */}
       <div

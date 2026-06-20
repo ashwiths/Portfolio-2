@@ -291,15 +291,11 @@ function LogoItem({ item, index }) {
         zIndex: hovered ? 100 : (size === 'large' ? 10 : 5),
       }}
     >
-      <motion.div
-        animate={{
-          y: driftY,
-        }}
-        transition={{
-          duration: driftDuration,
-          delay: driftDelay,
-          repeat: Infinity,
-          ease: 'easeInOut',
+      <div
+        className="logo-drift"
+        style={{
+          '--drift-duration': `${driftDuration}s`,
+          '--drift-delay': `-${driftDelay}s`,
         }}
       >
         <motion.a
@@ -418,7 +414,7 @@ function LogoItem({ item, index }) {
           </AnimatePresence>
 
         </motion.a>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -427,7 +423,7 @@ function LogoItem({ item, index }) {
 export default function EcosystemShowcase() {
   return (
     <section
-      className="relative overflow-hidden"
+      className="relative overflow-hidden content-visibility-auto"
       style={{
         background: '#050505',
         paddingTop: 'clamp(40px, 6vw, 80px)',

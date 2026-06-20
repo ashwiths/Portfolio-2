@@ -1018,3 +1018,24 @@ html.lenis {
   color: #a1a1aa; /* Zinc 400 equivalent for premium contrast */
   opacity: 0.8;
 }
+
+/* --- SCROLL PERFORMANCE OPTIMIZATIONS --- */
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+@keyframes float-drift {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--drift-amount, -12px));
+  }
+}
+
+.logo-drift {
+  animation: float-drift var(--drift-duration, 8s) ease-in-out var(--drift-delay, 0s) infinite;
+  will-change: transform;
+}

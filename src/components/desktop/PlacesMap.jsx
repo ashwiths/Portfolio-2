@@ -309,7 +309,7 @@ export default function PlacesMap() {
   }, [projectedCities]);
 
   return (
-    <section className="relative py-12 md:py-16 overflow-hidden">
+    <section className="relative py-12 md:py-16 overflow-hidden content-visibility-auto">
       {/* Dynamic travel line glow and grid movements */}
       <style>{`
         @keyframes routeFlow {
@@ -381,7 +381,7 @@ export default function PlacesMap() {
           <svg
             className="w-full h-full"
             viewBox={`0 0 ${width} ${height}`}
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: 'none', willChange: 'transform' }}
           >
             <defs>
               {/* Subtle Asia regional glow definition */}
@@ -405,7 +405,7 @@ export default function PlacesMap() {
                 stiffness: 65, 
                 mass: 1.2 
               }}
-              style={{ transformOrigin: '0px 0px' }}
+              style={{ transformOrigin: '0px 0px', willChange: 'transform' }}
             >
               {/* Subtle Asia regional breathing glow (pans and zooms with map elements) */}
               {asiaProjected && (

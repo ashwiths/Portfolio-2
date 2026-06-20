@@ -188,7 +188,7 @@ export default function MobilePlacesMap() {
   }, [projectedCities]);
 
   return (
-    <section className="w-full px-4 py-8 relative select-none">
+    <section className="w-full px-4 py-8 relative select-none content-visibility-auto">
       
       {/* Travel Title header */}
       <div className="mb-6 text-left">
@@ -221,7 +221,7 @@ export default function MobilePlacesMap() {
         />
 
         {/* Map SVG Canvas */}
-        <svg className="w-full h-full" viewBox={`0 0 ${width} ${height}`} style={{ pointerEvents: 'none' }}>
+        <svg className="w-full h-full" viewBox={`0 0 ${width} ${height}`} style={{ pointerEvents: 'none', willChange: 'transform' }}>
           <defs>
             <radialGradient id="mobileAsiaGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#ff7a3d" stopOpacity="0.08" />
@@ -237,7 +237,7 @@ export default function MobilePlacesMap() {
               y: pan.y,
             }}
             transition={{ type: 'spring', damping: 25, stiffness: 60 }}
-            style={{ transformOrigin: '0px 0px' }}
+            style={{ transformOrigin: '0px 0px', willChange: 'transform' }}
           >
             {/* Ambient orange regional glow */}
             {asiaProjected && (

@@ -22,30 +22,33 @@ export default function CinematicBackground() {
     >
       {/* 1. Ambient Glow 1 - Deep Purple (Behind Hero & Top Left) */}
       <motion.div
-        style={{ y: yParallax1 }}
-        className="absolute top-[-20%] left-[-15%] w-[80vw] h-[80vw] rounded-full blur-[180px] pointer-events-none animate-pulse-slow mix-blend-screen"
         style={{
+          y: yParallax1,
+          willChange: 'transform',
           background: 'radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, rgba(124, 58, 237, 0.02) 50%, transparent 80%)'
         }}
+        className="absolute top-[-20%] left-[-15%] w-[80vw] h-[80vw] rounded-full blur-[180px] pointer-events-none animate-pulse-slow mix-blend-screen"
       />
       
       {/* 2. Ambient Glow 2 - Dark Blue (Middle Right, Behind Portrait) */}
       <motion.div
-        style={{ y: yParallax2 }}
-        className="absolute top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full blur-[160px] pointer-events-none animate-pulse-slow-reverse mix-blend-screen"
         style={{
+          y: yParallax2,
+          willChange: 'transform',
           background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.01) 50%, transparent 80%)'
         }}
+        className="absolute top-[30%] right-[-10%] w-[70vw] h-[70vw] rounded-full blur-[160px] pointer-events-none animate-pulse-slow-reverse mix-blend-screen"
       />
       
       {/* 3. Ambient Glow 3 - Soft Indigo (Bottom Left, Behind Experience) */}
       <motion.div
-        style={{ y: yParallax3 }}
-        className="absolute bottom-[-15%] left-[10%] w-[75vw] h-[75vw] rounded-full blur-[180px] pointer-events-none animate-pulse-slow mix-blend-screen"
         style={{
+          y: yParallax3,
+          willChange: 'transform',
           background: 'radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(99, 102, 241, 0.01) 50%, transparent 80%)',
           animationDelay: '-4s'
         }}
+        className="absolute bottom-[-15%] left-[10%] w-[75vw] h-[75vw] rounded-full blur-[180px] pointer-events-none animate-pulse-slow mix-blend-screen"
       />
 
       {/* 4. Subtle Animated Moving Grid Overlay */}
