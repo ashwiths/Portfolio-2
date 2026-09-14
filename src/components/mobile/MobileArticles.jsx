@@ -3,14 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const experienceData = [
   {
-    role: "Chief Executive Officer (CEO)",
-    company: "BlueLab Technologies",
+    role: "Founder & Chief Executive Officer",
+    company: "AAA Isolutions",
     type: "Founder / CEO",
     location: "Remote",
-    period: "Present",
-    description: "Founder and CEO of BlueLab Technologies, a digital technology agency focused on building modern web platforms and software solutions. Leading product development and projects.",
-    skills: ["Leadership", "Product", "Web Dev", "Team"],
+    period: "2026 - Present",
+    description: "Founder and CEO of AAA Isolutions, a service-based technology company specializing in end-to-end project making, custom web platforms, and client software solutions.",
+    skills: ["Leadership", "Project Making", "Full-Stack Dev", "Team"],
     color: "#3b82f6",
+  },
+  {
+    role: "Chief Executive Officer (CEO)",
+    company: "BlueLab Technologies",
+    type: "Leadership",
+    location: "Remote",
+    period: "2025 - 2026",
+    description: "Led digital product engineering, modern full-stack web platforms, scalable cloud architectures, and guided end-to-end software solutions.",
+    skills: ["Leadership", "Product", "Web Dev", "Team"],
+    color: "#8b5cf6",
   },
   {
     role: "Frontend Developer Intern",
@@ -21,16 +31,6 @@ const experienceData = [
     description: "Worked on real-world frontend implementations. Gained hands-on experience building responsive UIs and collaborating within development teams.",
     skills: ["React", "Responsive UIs", "Optimization"],
     color: "#7c3aed",
-  },
-  {
-    role: "QA Testing Intern",
-    company: "Cognifyz Technologies",
-    type: "Internship",
-    location: "Remote",
-    period: "2024",
-    description: "Performed quality assurance testing including unit and integration testing for reliable builds. Documented testing procedures.",
-    skills: ["QA Testing", "Unit Testing", "Documentation"],
-    color: "#10b981",
   },
 ];
 

@@ -4,10 +4,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const journey = [
   {
     id: '01',
-    year: '2024',
-    title: 'QA TESTING INTERN',
-    organization: 'COGNIFYZ TECHNOLOGIES',
-    description: 'Conducted comprehensive quality assurance testing, unit and integration validation for reliable production builds, and documented QA workflows.',
+    year: '2026 - PRESENT',
+    title: 'FOUNDER & CEO',
+    organization: 'AAA ISOLUTIONS',
+    description: 'Founder and CEO of a service-based software company specializing in end-to-end project making, custom web platforms, scalable cloud architectures, and digital client solutions.',
   },
   {
     id: '02',
