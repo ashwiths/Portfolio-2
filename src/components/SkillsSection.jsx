@@ -103,7 +103,7 @@ export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative w-full min-h-screen bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-16 pb-20 lg:pt-20 lg:pb-24 px-6 sm:px-12 lg:px-20 overflow-hidden flex flex-col justify-center"
+      className="relative z-20 w-full min-h-screen bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-16 pb-20 lg:pt-20 lg:pb-24 px-6 sm:px-12 lg:px-20 overflow-hidden flex flex-col justify-center"
     >
       {/* Ambient Glows */}
       <div className="absolute top-1/3 left-1/4 w-[34rem] h-[34rem] bg-[#D4AF37]/5 rounded-full blur-[170px] pointer-events-none" />

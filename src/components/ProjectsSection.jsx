@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import ScrollStack, { ScrollStackItem } from './ScrollStack';
 
 const projects = [
@@ -97,11 +97,146 @@ const projects = [
   },
 ];
 
+/* Mobile Card with Real-Time Scrolling Stacking Animation */
+const MobileProjectCard = ({ project, index, total }) => {
+  const cardContainerRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: cardContainerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const targetScale = 1 - (total - 1 - index) * 0.035;
+  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.88]);
+
+  return (
+    <div
+      ref={cardContainerRef}
+      className="sticky w-full"
+      style={{
+        top: `calc(72px + ${index * 14}px)`,
+        zIndex: index + 1,
+        marginBottom: index === total - 1 ? '0px' : '40px',
+      }}
+    >
+      <motion.div
+        style={{
+          scale,
+          opacity,
+          transformOrigin: 'top center',
+        }}
+        className="relative w-full rounded-xl border border-[#8C6D4F]/50 bg-[#0E0C0A] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.98)] group overflow-hidden transition-colors duration-500 hover:border-[#D4AF37]"
+      >
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#D4AF37]/60" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#D4AF37]/60" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#D4AF37]/60" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#D4AF37]/60" />
+
+        <span
+          className="absolute -bottom-4 -right-2 text-7xl font-bold text-[#EAD8C7]/5 select-none pointer-events-none leading-none"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+        >
+          {project.number}
+        </span>
+
+        <div className="flex flex-col space-y-4 relative z-10">
+          <div>
+            <div className="flex items-center space-x-2 mb-2">
+              <span className="text-[11px] font-mono font-bold text-[#D4AF37]">
+                {project.number} //
+              </span>
+              <span className="text-[9.5px] font-mono tracking-[0.22em] uppercase text-[#A8988B]">
+                {project.category}
+              </span>
+            </div>
+
+            <h3
+              className="text-3xl font-normal tracking-tight text-white mb-2 group-hover:text-[#F7E7C4] transition-colors uppercase leading-[0.9]"
+              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            >
+              {project.title}
+            </h3>
+
+            <p
+              className="text-[12px] font-light text-[#BDB0A4] leading-relaxed tracking-wide mb-3"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+            >
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#8C6D4F]/25">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="px-2.5 py-0.5 text-[9px] font-medium tracking-[0.14em] uppercase rounded-sm border border-[#8C6D4F]/40 bg-[#16120E] text-[#E8D7C5]"
+                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-[#8C6D4F] block mb-2">
+              // ARCHITECTURE METRICS
+            </span>
+            <div className="grid grid-cols-1 gap-2">
+              {project.metrics.map((m) => (
+                <div
+                  key={m.label}
+                  className="p-2.5 rounded-sm border border-[#8C6D4F]/25 bg-[#050403] flex items-center justify-between"
+                >
+                  <span className="text-[9.5px] font-mono text-[#A8988B]">
+                    {m.label}
+                  </span>
+                  <span className="text-[10.5px] font-mono font-medium text-[#F7E7C4]">
+                    {m.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2.5 pt-1">
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 border border-[#D4AF37] bg-[#D4AF37] text-black text-[10px] font-semibold tracking-[0.18em] uppercase text-center"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
+                <span>VISIT LIVE</span>
+                <span className="text-xs">↗</span>
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 border border-[#8C6D4F] bg-[#16120E] text-[#EAD8C7] text-[10px] font-medium tracking-[0.18em] uppercase text-center"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
+                <span>GITHUB</span>
+                <span className="text-xs">↗</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="relative w-full bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-20 pb-32 px-6 sm:px-12 lg:px-20"
+      className="relative z-10 w-full bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-16 pb-24 sm:pt-20 sm:pb-32 px-4 sm:px-8 lg:px-20"
     >
       {/* Studio Ambient Glows */}
       <div className="absolute top-1/4 left-1/3 w-[36rem] h-[36rem] bg-[#D4AF37]/5 rounded-full blur-[180px] pointer-events-none" />
@@ -115,15 +250,15 @@ export const ProjectsSection = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="flex items-center space-x-4 mb-5"
+          className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-5"
         >
           <span
-            className="text-[11px] font-medium tracking-[0.35em] uppercase text-[#D4AF37]"
+            className="text-[10px] sm:text-[11px] font-medium tracking-[0.35em] uppercase text-[#D4AF37]"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
             02 / FEATURED WORK
           </span>
-          <div className="w-20 h-[1px] bg-gradient-to-r from-[#D4AF37]/80 via-[#8C6D4F]/40 to-transparent" />
+          <div className="w-16 sm:w-20 h-[1px] bg-gradient-to-r from-[#D4AF37]/80 via-[#8C6D4F]/40 to-transparent" />
         </motion.div>
 
         {/* Section Headline */}
@@ -132,10 +267,10 @@ export const ProjectsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-14"
         >
           <h2
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight uppercase leading-[0.85] select-none"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight uppercase leading-[0.88] select-none"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             <span className="block text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-[#D5CBC0] to-[#605448] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
@@ -147,145 +282,145 @@ export const ProjectsSection = () => {
           </h2>
 
           <p
-            className="text-xs sm:text-sm font-light text-[#A8988B] max-w-sm mt-4 md:mt-0 leading-relaxed"
+            className="text-xs sm:text-sm font-light text-[#A8988B] max-w-sm mt-3 md:mt-0 leading-relaxed"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
             Scroll down to unfold the system architecture cards. Each platform was built to solve complex operational challenges.
           </p>
         </motion.div>
 
-        {/* React Bits Stacking Deck */}
-        <ScrollStack
-          itemDistance={20}
-          itemScale={0.035}
-          itemStackDistance={28}
-          stackPosition="15%"
-          scaleEndPosition="6%"
-          baseScale={0.88}
-          useWindowScroll={true}
-        >
-          {projects.map((project) => (
-            <ScrollStackItem key={project.title}>
-              <div className="relative w-full rounded-2xl border border-[#8C6D4F]/50 bg-[#0E0C0A] p-8 sm:p-12 shadow-[0_25px_70px_rgba(0,0,0,0.98)] group overflow-hidden transition-colors duration-500 hover:border-[#D4AF37]">
+        {/* 1. Desktop View (Original ReactBits ScrollStack) */}
+        <div className="hidden md:block">
+          <ScrollStack
+            itemDistance={80}
+            itemScale={0.03}
+            itemStackDistance={32}
+            stackPosition="15%"
+            scaleEndPosition="8%"
+            baseScale={0.88}
+            useWindowScroll={true}
+          >
+            {projects.map((project) => (
+              <ScrollStackItem key={project.title}>
+                <div className="relative w-full rounded-2xl border border-[#8C6D4F]/50 bg-[#0E0C0A] p-8 sm:p-12 shadow-[0_25px_70px_rgba(0,0,0,0.98)] group overflow-hidden transition-colors duration-500 hover:border-[#D4AF37]">
+                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
 
-                {/* Top Gold Border Light Flare */}
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+                  <span
+                    className="absolute -bottom-6 -right-3 text-9xl font-bold text-[#EAD8C7]/5 select-none pointer-events-none leading-none"
+                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  >
+                    {project.number}
+                  </span>
 
-                {/* Corner Minimal L-Brackets */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
-                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#D4AF37]/60 group-hover:border-[#D4AF37] transition-colors" />
-
-                {/* Big Background Watermark Number */}
-                <span
-                  className="absolute -bottom-6 -right-3 text-8xl sm:text-9xl font-bold text-[#EAD8C7]/5 select-none pointer-events-none leading-none"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                >
-                  {project.number}
-                </span>
-
-                {/* Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
-
-                  {/* Left Column (7 Cols) */}
-                  <div className="lg:col-span-7 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center space-x-3 mb-4">
-                        <span className="text-xs font-mono font-bold text-[#D4AF37]">
-                          {project.number} //
-                        </span>
-                        <span className="text-[10.5px] font-mono tracking-[0.25em] uppercase text-[#A8988B]">
-                          {project.category}
-                        </span>
-                      </div>
-
-                      <h3
-                        className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white mb-4 group-hover:text-[#F7E7C4] transition-colors uppercase leading-[0.9]"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                      >
-                        {project.title}
-                      </h3>
-
-                      <p
-                        className="text-xs sm:text-sm md:text-[14px] font-light text-[#BDB0A4] leading-[1.85] tracking-wide mb-8 max-w-2xl"
-                        style={{ fontFamily: "'Montserrat', sans-serif" }}
-                      >
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* Tech Stack Pills */}
-                    <div className="flex flex-wrap gap-2 pt-6 border-t border-[#8C6D4F]/25">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-3 py-1 text-[10px] font-medium tracking-[0.16em] uppercase rounded-sm border border-[#8C6D4F]/40 bg-[#16120E] text-[#E8D7C5] group-hover:border-[#D4AF37]/50 transition-all duration-300"
-                          style={{ fontFamily: "'Montserrat', sans-serif" }}
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column (5 Cols) */}
-                  <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6 lg:pl-6 lg:border-l lg:border-[#8C6D4F]/25">
-
-                    {/* Architecture Metrics */}
-                    <div className="space-y-3">
-                      <span className="text-[9.5px] font-mono tracking-[0.25em] uppercase text-[#8C6D4F] block mb-2">
-                        // ARCHITECTURE METRICS
-                      </span>
-                      {project.metrics.map((m) => (
-                        <div
-                          key={m.label}
-                          className="p-3.5 rounded-sm border border-[#8C6D4F]/25 bg-[#050403] flex items-center justify-between"
-                        >
-                          <span className="text-[10px] font-mono text-[#A8988B]">
-                            {m.label}
+                  <div className="grid grid-cols-12 gap-8 items-start relative z-10">
+                    <div className="col-span-7 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center space-x-3 mb-4">
+                          <span className="text-xs font-mono font-bold text-[#D4AF37]">
+                            {project.number} //
                           </span>
-                          <span className="text-[11px] font-mono font-medium text-[#F7E7C4]">
-                            {m.value}
+                          <span className="text-[10.5px] font-mono tracking-[0.25em] uppercase text-[#A8988B]">
+                            {project.category}
                           </span>
                         </div>
-                      ))}
+
+                        <h3
+                          className="text-5xl lg:text-6xl font-normal tracking-tight text-white mb-4 group-hover:text-[#F7E7C4] transition-colors uppercase leading-[0.9]"
+                          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                        >
+                          {project.title}
+                        </h3>
+
+                        <p
+                          className="text-sm md:text-[14px] font-light text-[#BDB0A4] leading-[1.85] tracking-wide mb-8 max-w-2xl"
+                          style={{ fontFamily: "'Montserrat', sans-serif" }}
+                        >
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 pt-6 border-t border-[#8C6D4F]/25">
+                        {project.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="px-3 py-1 text-[10px] font-medium tracking-[0.16em] uppercase rounded-sm border border-[#8C6D4F]/40 bg-[#16120E] text-[#E8D7C5] group-hover:border-[#D4AF37]/50 transition-all duration-300"
+                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* CTA Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                      {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center space-x-2 px-5 py-3.5 border border-[#D4AF37] bg-[#D4AF37] hover:bg-[#c49f2c] text-black text-[11px] font-semibold tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
-                          style={{ fontFamily: "'Montserrat', sans-serif" }}
-                        >
-                          <span>VISIT LIVE</span>
-                          <span className="text-xs">↗</span>
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center space-x-2 px-5 py-3.5 border border-[#8C6D4F] bg-[#16120E] hover:border-[#D4AF37] hover:text-white text-[#EAD8C7] text-[11px] font-medium tracking-[0.2em] uppercase transition-all duration-300"
-                          style={{ fontFamily: "'Montserrat', sans-serif" }}
-                        >
-                          <span>VIEW GITHUB</span>
-                          <span className="text-xs">↗</span>
-                        </a>
-                      )}
+                    <div className="col-span-5 flex flex-col justify-between h-full space-y-6 pl-6 border-l border-[#8C6D4F]/25">
+                      <div className="space-y-3">
+                        <span className="text-[9.5px] font-mono tracking-[0.25em] uppercase text-[#8C6D4F] block mb-2">
+                          // ARCHITECTURE METRICS
+                        </span>
+                        {project.metrics.map((m) => (
+                          <div
+                            key={m.label}
+                            className="p-3.5 rounded-sm border border-[#8C6D4F]/25 bg-[#050403] flex items-center justify-between"
+                          >
+                            <span className="text-[10px] font-mono text-[#A8988B]">
+                              {m.label}
+                            </span>
+                            <span className="text-[11px] font-mono font-medium text-[#F7E7C4]">
+                              {m.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-row gap-3 pt-2">
+                        {project.demoUrl && (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center space-x-2 px-5 py-3.5 border border-[#D4AF37] bg-[#D4AF37] hover:bg-[#c49f2c] text-black text-[11px] font-semibold tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                          >
+                            <span>VISIT LIVE</span>
+                            <span className="text-xs">↗</span>
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center space-x-2 px-5 py-3.5 border border-[#8C6D4F] bg-[#16120E] hover:border-[#D4AF37] hover:text-white text-[#EAD8C7] text-[11px] font-medium tracking-[0.2em] uppercase transition-all duration-300"
+                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                          >
+                            <span>VIEW GITHUB</span>
+                            <span className="text-xs">↗</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-
                 </div>
-              </div>
-            </ScrollStackItem>
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
+        </div>
+
+        {/* 2. Mobile View (Dedicated Real-Time Stacking Deck Animation) */}
+        <div className="block md:hidden relative w-full flex flex-col">
+          {projects.map((project, index) => (
+            <MobileProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              total={projects.length}
+            />
           ))}
-        </ScrollStack>
+        </div>
 
       </div>
     </section>
