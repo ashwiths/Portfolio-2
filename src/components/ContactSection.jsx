@@ -76,40 +76,7 @@ export const ContactSection = () => {
                 Have an ambitious system to architect, an engineering opportunity, or a collaborative inquiry? Send a direct dispatch below.
               </p>
 
-              {/* Direct Channels */}
-              <div className="space-y-3 pt-2">
-                <a
-                  href="mailto:infantashil55@gmail.com"
-                  className="flex items-center gap-3 text-xs text-[#A8988B] hover:text-[#D4AF37] transition-colors group"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60 group-hover:scale-125 transition-transform" />
-                  <span className="font-mono text-[10px] tracking-widest text-[#8C6D4F]">EMAIL //</span>
-                  <span>infantashil55@gmail.com</span>
-                </a>
-                <a
-                  href="https://linkedin.com/in/infant-ashil-a-b88a39361/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-xs text-[#A8988B] hover:text-[#D4AF37] transition-colors group"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60 group-hover:scale-125 transition-transform" />
-                  <span className="font-mono text-[10px] tracking-widest text-[#8C6D4F]">LINKEDIN //</span>
-                  <span>infant-ashil-a</span>
-                </a>
-                <a
-                  href="https://github.com/ashwiths"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-xs text-[#A8988B] hover:text-[#D4AF37] transition-colors group"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60 group-hover:scale-125 transition-transform" />
-                  <span className="font-mono text-[10px] tracking-widest text-[#8C6D4F]">GITHUB //</span>
-                  <span>ashwiths</span>
-                </a>
-              </div>
+
             </div>
           </div>
 
