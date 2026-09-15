@@ -287,12 +287,12 @@ export default function AboutSection() {
               </div>
 
               {/* Portrait Image Canvas */}
-              <div className="relative overflow-hidden w-full max-w-[390px] aspect-[4/5] bg-black rounded-sm">
+              <div className="relative overflow-hidden w-full max-w-[390px] aspect-[4/5] bg-[#0c0a09] rounded-sm">
                 {/* Main Portrait */}
                 <img
                   src={ashilImg}
                   alt="Infant Ashil A"
-                  className="w-full h-full object-cover object-top filter brightness-[0.95] contrast-[1.05] saturate-[1.02] group-hover:brightness-105 group-hover:contrast-[1.12] transition-all duration-700 ease-out"
+                  className="w-full h-full object-cover object-[center_12%] filter brightness-[0.98] contrast-[1.04] saturate-[1.02] group-hover:brightness-105 group-hover:contrast-[1.10] transition-all duration-700 ease-out"
                 />
 
                 {/* Mouse-Tracked Holographic Glass Spotlight Sweep */}
@@ -304,16 +304,16 @@ export default function AboutSection() {
                   }}
                 />
 
-                {/* Deep Rich Black Gradient Backdrop across bottom third */}
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/90 via-40% to-transparent pointer-events-none z-10" />
+                {/* Deep Rich Black Gradient Backdrop to Strongly Highlight the Signature */}
+                <div className="absolute inset-x-0 bottom-0 h-40 sm:h-44 bg-gradient-to-t from-black via-black/95 via-45% to-transparent pointer-events-none z-10" />
 
-                {/* Automated Handwritten Signature placed somemore down */}
-                <div className="absolute bottom-1.5 right-2 sm:bottom-2 sm:right-3 z-20 select-none">
+                {/* Automated Handwritten Signature */}
+                <div className="absolute bottom-2.5 right-2 sm:bottom-3 sm:right-3 z-20 select-none">
                   <AshilSignature
-                    className="w-48 sm:w-60 h-auto drop-shadow-[0_0_12px_rgba(242,216,167,0.7)]"
-                    color="#F2D8A7"
+                    className="w-48 sm:w-56 h-auto drop-shadow-[0_0_15px_rgba(242,216,167,0.9)] drop-shadow-[0_0_25px_rgba(212,175,55,0.6)]"
+                    color="#F5DEB3"
                     glowColor="#D4AF37"
-                    strokeWidth={1.6}
+                    strokeWidth={1.7}
                   />
                 </div>
               </div>

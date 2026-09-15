@@ -35,7 +35,7 @@ export default function Navbar() {
       >
         {/* Brand / Logo */}
         <a
-          href="#about"
+          href="#hero"
           className="text-xs sm:text-sm font-semibold tracking-[0.35em] uppercase text-[#EAD8C7] hover:text-[#FFF5EB] transition-colors duration-300 select-none flex items-center"
           style={{ fontFamily: "'Montserrat', sans-serif" }}
         >
