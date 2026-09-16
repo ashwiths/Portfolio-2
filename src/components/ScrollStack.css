@@ -8,8 +8,7 @@
   position: relative;
   width: 100%;
   padding-top: 4vh;
-  padding-bottom: 50vh;
-  /* creates the runway so all cards stack and lock at the top */
+  padding-bottom: 50vh; /* creates the runway so all cards stack and lock at the top */
 }
 
 .scroll-stack-card {
