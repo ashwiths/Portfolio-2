@@ -24,6 +24,8 @@ export default function App() {
       wheelMultiplier: 0.9,
     });
 
+    window.__lenis = lenis;
+
     let rafId;
     function raf(time) {
       lenis.raf(time);
@@ -33,6 +35,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      window.__lenis = null;
       cancelAnimationFrame(rafId);
     };
   }, [isLoading]);
