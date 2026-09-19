@@ -141,6 +141,7 @@ export const HeroSection = () => {
               {/* Download Resume Button */}
               <motion.a
                 href="/resume.pdf"
+                download="INFANT_ASHIL_A_UPDATED_RESUME.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}

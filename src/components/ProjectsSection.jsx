@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ScrollStack, { ScrollStackItem } from './ScrollStack';
+import IpadProjectsSection from './IpadProjectsSection';
 
 const projects = [
   {
@@ -289,8 +290,8 @@ export const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        {/* 1. Desktop View (Original ReactBits ScrollStack) */}
-        <div className="hidden md:block">
+        {/* 1. Desktop View (Original ReactBits ScrollStack - 100% untouched) */}
+        <div className="hidden lg:block">
           <ScrollStack
             itemDistance={80}
             itemScale={0.03}
@@ -410,7 +411,12 @@ export const ProjectsSection = () => {
           </ScrollStack>
         </div>
 
-        {/* 2. Mobile View (Dedicated Real-Time Stacking Deck Animation) */}
+        {/* 2. iPad / Tablet View (Dedicated Separate File & Touch-Optimized Deck) */}
+        <div className="hidden md:block lg:hidden relative w-full">
+          <IpadProjectsSection projects={projects} />
+        </div>
+
+        {/* 3. Mobile View (Dedicated Real-Time Stacking Deck Animation) */}
         <div className="block md:hidden relative w-full flex flex-col">
           {projects.map((project, index) => (
             <MobileProjectCard

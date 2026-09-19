@@ -9,6 +9,7 @@ import ProjectsSection from './components/ProjectsSection';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
 import ContactSection from './components/ContactSection';
+import ResumeModal from './components/ResumeModal';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,8 +25,6 @@ export default function App() {
       wheelMultiplier: 0.9,
     });
 
-    window.__lenis = lenis;
-
     let rafId;
     function raf(time) {
       lenis.raf(time);
@@ -35,7 +34,6 @@ export default function App() {
 
     return () => {
       lenis.destroy();
-      window.__lenis = null;
       cancelAnimationFrame(rafId);
     };
   }, [isLoading]);
@@ -57,6 +55,7 @@ export default function App() {
           <SkillsSection />
           <ExperienceSection />
           <ContactSection />
+          <ResumeModal />
         </div>
       )}
     </>
