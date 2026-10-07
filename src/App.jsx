@@ -47,7 +47,7 @@ export default function App() {
 
       {/* Main Page */}
       {!isLoading && (
-        <div className="w-full min-h-screen bg-black text-[#E8DFD8] relative selection:bg-[#cbb59d] selection:text-black overflow-x-hidden">
+        <div className="w-full min-h-screen bg-black text-[#E8DFD8] relative selection:bg-[#cbb59d] selection:text-black overflow-x-clip">
           <Navbar />
           <HeroSection />
           <AboutSection />

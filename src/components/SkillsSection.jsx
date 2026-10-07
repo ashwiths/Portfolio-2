@@ -44,7 +44,22 @@ const bentoCategories = [
     ],
     description: 'Engineered high-performance Windows desktop applications. Built Custon desktop app using Tauri, Rust, and Vite.',
     stat: 'WINDOWS X64',
-    colSpan: 'lg:col-span-4',
+    colSpan: 'lg:col-span-6',
+  },
+  {
+    title: 'ANTIGRAVITY EXTENSION',
+    badge: 'IDE EXTENSION',
+    items: [
+      { name: 'Custom Switcher', url: 'https://open-vsx.org/extension/ashil/custom-switcher' },
+      'Open VSX',
+      'VS Code API',
+      'SecretStorage',
+      'TypeScript',
+      'Shortcuts',
+    ],
+    description: 'Native account management and authentication assistant built for Google Antigravity IDE. Multi-account fast switching with SecretStorage security and Open VSX release.',
+    stat: 'OPEN VSX',
+    colSpan: 'lg:col-span-6',
   },
   {
     title: 'CHROME EXTENSION',
@@ -58,7 +73,7 @@ const bentoCategories = [
     ],
     description: 'Built high-productivity browser tools. Created ChromeSwitch — instant keyboard-driven profile switcher with session preservation.',
     stat: 'MANIFEST V3',
-    colSpan: 'lg:col-span-4',
+    colSpan: 'lg:col-span-6',
   },
   {
     title: 'UI/UX DESIGN',
@@ -66,7 +81,7 @@ const bentoCategories = [
     items: ['Figma', 'Design Systems', 'Wireframing', 'Prototyping', 'User Research'],
     description: 'Crafting intuitive user interfaces, high-fidelity interactive prototypes, design systems, and cohesive user journeys.',
     stat: 'FIGMA & SYSTEMS',
-    colSpan: 'lg:col-span-4',
+    colSpan: 'lg:col-span-6',
   },
 ];
 
@@ -146,7 +161,7 @@ export function SkillsSection() {
           </h2>
         </motion.div>
 
-        {/* Bento Grid (Single Page Layout: 2 on Top, 3 on Bottom) */}
+        {/* Bento Grid (6-Card Dual-Column Layout) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
