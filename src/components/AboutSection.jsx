@@ -15,13 +15,12 @@ const containerVariants = {
 };
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: 1.2,
+      duration: 1.0,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -71,16 +70,14 @@ export default function AboutSection() {
       id="about"
       className="relative w-full min-h-screen bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-28 pb-20 lg:pt-36 lg:pb-28 px-6 sm:px-12 lg:px-20 overflow-hidden flex items-center justify-center"
     >
-      {/* ================= BACKGROUND GLOWS & FLOATING PARTICLES ================= */}
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.16, 0.08] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-1/6 w-[32rem] h-[32rem] bg-[#D4AF37] rounded-full blur-[160px] pointer-events-none"
+      {/* ================= BACKGROUND GLOWS (ZERO-OVERHEAD RADIAL GRADIENTS) ================= */}
+      <div
+        className="absolute top-1/4 left-1/6 w-[32rem] h-[32rem] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.09) 0%, transparent 70%)' }}
       />
-      <motion.div
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.05, 0.12, 0.05] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-1/6 right-1/4 w-[28rem] h-[28rem] bg-[#8C6D4F] rounded-full blur-[170px] pointer-events-none"
+      <div
+        className="absolute bottom-1/6 right-1/4 w-[28rem] h-[28rem] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(140,109,79,0.07) 0%, transparent 70%)' }}
       />
 
       {/* Side Dot Indicator matching UI reference */}

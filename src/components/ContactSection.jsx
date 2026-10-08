@@ -20,8 +20,11 @@ export const ContactSection = () => {
       id="contact"
       className="relative w-full bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-20 pb-16 px-6 sm:px-12 lg:px-20 overflow-hidden"
     >
-      {/* Subtle Background Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[45rem] h-[45rem] bg-[#D4AF37]/[0.025] rounded-full blur-[160px] pointer-events-none" />
+      {/* Subtle Background Glow (Zero-Overhead Radial Gradient) */}
+      <div 
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[45rem] h-[45rem] rounded-full pointer-events-none" 
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
 

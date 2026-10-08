@@ -14,27 +14,39 @@ import ResumeModal from './components/ResumeModal';
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize Lenis smooth scroll
+  // Initialize single global Lenis smooth scroll with FPS throttling
   useEffect(() => {
     if (isLoading) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.9,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
     });
 
+    window.__lenis = lenis;
+
     let rafId;
+    let lastTime = performance.now();
+    const targetFps = 60;
+    const interval = 1000 / targetFps;
+
     function raf(time) {
-      lenis.raf(time);
       rafId = requestAnimationFrame(raf);
+      const delta = time - lastTime;
+      if (delta >= interval) {
+        lastTime = time - (delta % interval);
+        lenis.raf(time);
+      }
     }
     rafId = requestAnimationFrame(raf);
 
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      delete window.__lenis;
     };
   }, [isLoading]);
 

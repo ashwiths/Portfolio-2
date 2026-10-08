@@ -97,11 +97,10 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 25, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
       duration: 0.85,
       ease: [0.16, 1, 0.3, 1],
@@ -117,9 +116,15 @@ export function SkillsSection() {
       id="skills"
       className="relative z-20 w-full min-h-screen bg-black text-[#E8DFD8] font-sans selection:bg-[#cbb59d] selection:text-black pt-16 pb-20 lg:pt-20 lg:pb-24 px-6 sm:px-12 lg:px-20 overflow-hidden flex flex-col justify-center"
     >
-      {/* Ambient Glows */}
-      <div className="absolute top-1/3 left-1/4 w-[34rem] h-[34rem] bg-[#D4AF37]/5 rounded-full blur-[170px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[28rem] h-[28rem] bg-[#8C6D4F]/5 rounded-full blur-[160px] pointer-events-none" />
+      {/* Ambient Glows (Zero-Overhead Radial Gradients) */}
+      <div 
+        className="absolute top-1/3 left-1/4 w-[34rem] h-[34rem] rounded-full pointer-events-none" 
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)' }}
+      />
+      <div 
+        className="absolute bottom-10 right-1/4 w-[28rem] h-[28rem] rounded-full pointer-events-none" 
+        style={{ background: 'radial-gradient(circle, rgba(140,109,79,0.05) 0%, transparent 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         
@@ -176,7 +181,7 @@ export function SkillsSection() {
               onMouseEnter={() => setHoveredIdx(idx)}
               onMouseLeave={() => setHoveredIdx(null)}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`${block.colSpan} relative p-6 sm:p-7 rounded-sm border border-[#8C6D4F]/35 bg-[#100D0B]/85 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-[#D4AF37]/80 hover:shadow-[0_16px_45px_rgba(212,175,55,0.14)] cursor-pointer group flex flex-col justify-between`}
+              className={`${block.colSpan} relative p-6 sm:p-7 rounded-sm border border-[#8C6D4F]/35 bg-[#100D0B]/95 overflow-hidden transition-all duration-500 hover:border-[#D4AF37]/80 hover:shadow-[0_16px_45px_rgba(212,175,55,0.14)] cursor-pointer group flex flex-col justify-between`}
             >
               {/* Top Subtle Border Highlight */}
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

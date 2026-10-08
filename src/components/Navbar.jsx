@@ -14,8 +14,15 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 30);
+          ticking = false;
+        });
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -29,8 +36,8 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full px-6 sm:px-12 lg:px-20 transition-all duration-500 ${
           isScrolled
-            ? 'py-4 bg-black/85 backdrop-blur-xl border-b border-[#8C6D4F]/20 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
-            : 'py-6 sm:py-8 bg-gradient-to-b from-black/80 via-black/30 to-transparent backdrop-blur-[2px]'
+            ? 'py-4 bg-black/90 backdrop-blur-md border-b border-[#8C6D4F]/20 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+            : 'py-6 sm:py-8 bg-gradient-to-b from-black/80 via-black/30 to-transparent'
         }`}
       >
         {/* Brand / Logo */}
